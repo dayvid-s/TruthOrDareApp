@@ -8,11 +8,28 @@ import Icon  from 'react-native-vector-icons/AntDesign';
 //   ,'eae  man'],
 //   ChallengesUndone:['']
 
-
-
+const desafios =['fazer suruba', 'meter o loco', 'fumar uma ', ' e sei la ','cheirar um ', 'f1']
+const shuffle=()=>{
+  var currentIndex = desafios.length, temporaryValue, randomIndex
+  while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = desafios[currentIndex];
+      desafios[currentIndex] = desafios[randomIndex];
+      desafios[randomIndex] = temporaryValue;
+      console.log(desafios)
+  }}
+// o array vazio é length 0, e assim por diante. agora preciso fazer com que
+// esse numero seja adicionado conforme tem o clique
+shuffle(desafios)
 export default function Truth ({ navigation: { goBack } })  {
-  const [challenges, setChallenge]= useState({desafio:'now go'
- })
+  const [numerodesafio, setNumeroDesafio] = useState([])
+  
+  const addDesafio=()=>{
+    // aqui precisa de uma condição, pq senao vai chegar num nivel que não tem mais desafio
+    setNumeroDesafio(numerodesafio+1)
+  
+  }
 
   return(
         <View style={styles.container} >
@@ -31,15 +48,17 @@ export default function Truth ({ navigation: { goBack } })  {
                </Text>    
              </View>
              <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
+             
              <View>
-               <Text style={{fontSize:28,textAlign:'center'}} >{challenges.desafio} </Text>
+               <Text style={{fontSize:28,textAlign:'center'}} >ju {desafios[numerodesafio.length]} </Text>
             </View>
-             <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
+
+              <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
              </View>
            
            <View style={{flexDirection:'row', alignSelf:'center', justifyContent:'space-between'  } } >
               <View style={{right:20}}  >
-                <TouchableOpacity >
+                <TouchableOpacity onPress={addDesafio}  >
                 <Icon name='reload1' size={70} color='#ff09de' />
                 </TouchableOpacity>
               </View>
