@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
+import desafios from './desafios';
 
 
-
-const desafios =['fazer suruba', 'meter o loco', 'fumar uma ', ' e sei la ','cheirar um ', 'f1']
+// const desafios =['Quem você levaria dessa roda para uma ilha deserta?',
+//  'meter o loco', 'fumar uma ', ' e sei la ','cheirar um ', 'f1']
 const shuffle=()=>{
   var currentIndex = desafios.length, temporaryValue, randomIndex
   while (0 !== currentIndex) {
@@ -47,7 +48,7 @@ export default function Truth ()  {
              <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
              
              <View>
-               <Text style={{fontSize:28,textAlign:'center'}} >ju {desafios[numerodesafio.length]} </Text>
+               <Text style={{fontSize:28,textAlign:'center'}} >{desafios[numerodesafio.length]} </Text>
             </View>
 
               <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
