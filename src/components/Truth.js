@@ -1,12 +1,9 @@
 import React, {useState} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
 
 
-// {
-//   ChallengesDone: ['What would you like to do with a partner if you could erase her memory?'
-//   ,'eae  man'],
-//   ChallengesUndone:['']
 
 const desafios =['fazer suruba', 'meter o loco', 'fumar uma ', ' e sei la ','cheirar um ', 'f1']
 const shuffle=()=>{
@@ -17,14 +14,14 @@ const shuffle=()=>{
       temporaryValue = desafios[currentIndex];
       desafios[currentIndex] = desafios[randomIndex];
       desafios[randomIndex] = temporaryValue;
-      console.log(desafios)
   }}
 // o array vazio é length 0, e assim por diante. agora preciso fazer com que
 // esse numero seja adicionado conforme tem o clique
 shuffle(desafios)
-export default function Truth ({ navigation: { goBack } })  {
+export default function Truth ()  {
+  const navigation = useNavigation();
+
   const [numerodesafio, setNumeroDesafio] = useState([])
-  
   const addDesafio=()=>{
     // aqui precisa de uma condição, pq senao vai chegar num nivel que não tem mais desafio
     setNumeroDesafio(numerodesafio+1)
@@ -35,7 +32,7 @@ export default function Truth ({ navigation: { goBack } })  {
         <View style={styles.container} >
             <View style={{height: ('5%')}} > 
               <Text style={styles.lettersOne}  >Dayvid</Text>
-              <TouchableOpacity onPress={() => goBack()}  >
+              <TouchableOpacity onPress={() => {navigation.goBack()}}  >
                  <Icon name='left' size={30} color='#ff09de'/>
               </TouchableOpacity>
               <Text style={styles.lettersTwo} >HARD</Text>
@@ -66,7 +63,9 @@ export default function Truth ({ navigation: { goBack } })  {
                  <Icon name='caretright' size={70} color='#ff09de'/>
               </View>
               <View style={{left:20}}>
+                <TouchableOpacity onPress={()=> navigation.push('AddTruth')}>
                 <Icon name='pluscircle' size={70} color='#ff09de' />
+                 </TouchableOpacity>
               </View>
            </View>
       

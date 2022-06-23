@@ -1,31 +1,40 @@
 import React,{useState} from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 
 export default function AddTruth() {
-  const [task, setTask] = useState()
-  const [taskItems, setTaskItems] = useState([])
+  const navigation = useNavigation();
 
-  const handleAddTask=() =>{
-    setTaskItems([...taskItems, task])
-    setTask(null)
-    console.log('esse será o array do set task items')
-    console.log(taskItems)
- 
-    console.log(task)
-    console.log('esse foi o array do taks ')
+
+  const [desafiosz, setDesafiosz] = useState()
+  const [itemDesafiosz, setItemDesafio] = useState(['esse','é','do','novo '])
+
+  const handleAddDesafio=() =>{
+    setItemDesafio([...itemDesafiosz, desafiosz])
+    setDesafiosz(null) 
+    console.log(desafiosz)
+    console.log(itemDesafiosz)
   }
  return (
    <SafeAreaView style={styles.input} >
-        <TextInput placeholder='Escolha uma verdade' value={task} onChangeText={text => setTask(text)} maxLength={25} ></TextInput>
-        <TouchableOpacity onPress={() => handleAddTask()} >
+        <TextInput placeholder='Escolha uma verdade' value={desafiosz} 
+        onChangeText={text => setDesafiosz(text)} maxLength={25} ></TextInput>
+        
+        <TouchableOpacity onPress={() => handleAddDesafio()} >
           <View style={styles.addWrapper} >
            
             <Text style={styles.addText} >+</Text>
           </View>
         </TouchableOpacity>
         {/* / O ARRAY ESTÁ FEITO ( QUANDO VOLTAR AQUI SÓ VENHA FAZER  UM JEITO DE JUNTAR ESSE ARRAY COM OS DESAFIOS) */}
-        <View><Text> {taskItems.length}</Text></View>
+        <View><Text> {itemDesafiosz.length}</Text></View>
+
+
+        <View>
+          <Button title='Voltar' onPress={()=> {navigation.goBack()}}>            
+          </Button>
+        </View>
    </SafeAreaView>
  );
 }
