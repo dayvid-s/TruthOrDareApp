@@ -1,12 +1,12 @@
+// man, the documentation it's ur bestfriend, was just you go at the
+// documentation of react navigation, that you would solved this problem of params
 import React, {useState} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import desafios from './desafios';
+import { useRoute } from '@react-navigation/native';
 
-
-// const desafios =['Quem você levaria dessa roda para uma ilha deserta?',
-//  'meter o loco', 'fumar uma ', ' e sei la ','cheirar um ', 'f1']
 const shuffle=()=>{
   var currentIndex = desafios.length, temporaryValue, randomIndex
   while (0 !== currentIndex) {
@@ -19,8 +19,20 @@ const shuffle=()=>{
 // o array vazio é length 0, e assim por diante. agora preciso fazer com que
 // esse numero seja adicionado conforme tem o clique
 shuffle(desafios)
-export default function Truth ()  {
+export default function Truth()  {
+  
   const navigation = useNavigation();
+  const route = useRoute()
+  React.useEffect(() => {
+    if(route.params?.itemDesafioszsz){ 
+      var colardesafio = (route.params.itemDesafioszsz).slice
+  //  var adicionar=colardesafio.push(route.params.itemDesafioszsz) // aqui tem que ser um append, e não uma cópia  
+      console.warn(route.params.itemDesafioszsz.typeof)
+      console.log(typeof route.params.itemDesafioszsz)
+      
+
+}
+  }, [route.params?.itemDesafioszsz])
 
   const [numerodesafio, setNumeroDesafio] = useState([])
   const addDesafio=()=>{
@@ -32,7 +44,7 @@ export default function Truth ()  {
   return(
         <View style={styles.container} >
             <View style={{height: ('5%')}} > 
-              <Text style={styles.lettersOne}  >Dayvid</Text>
+              <Text style={styles.lettersOne}  >Dayvid{route.params?.itemDesafioszsz}</Text>
               <TouchableOpacity onPress={() => {navigation.goBack()}}  >
                  <Icon name='left' size={30} color='#ff09de'/>
               </TouchableOpacity>

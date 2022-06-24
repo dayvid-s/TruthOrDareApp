@@ -4,19 +4,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
 export default function AddTruth() {
-  const navigation = useNavigation();
-
+  const navigation = useNavigation()
 
   const [desafiosz, setDesafiosz] = useState()
-  const [itemDesafiosz, setItemDesafio] = useState(['esse','é','do','novo '])
+  const [itemDesafiosz, setItemDesafio] = useState([])
 
   const handleAddDesafio=() =>{
     setItemDesafio([...itemDesafiosz, desafiosz])
     setDesafiosz(null) 
-    console.log(desafiosz)
-    console.log(itemDesafiosz)
   }
- return (
+ var  itemDesafioszsz =[...itemDesafiosz]
+  return (
    <SafeAreaView style={styles.input} >
         <TextInput placeholder='Escolha uma verdade' value={desafiosz} 
         onChangeText={text => setDesafiosz(text)} maxLength={25} ></TextInput>
@@ -32,12 +30,24 @@ export default function AddTruth() {
 
 
         <View>
-          <Button title='Voltar' onPress={()=> {navigation.goBack()}}>            
+          <Button title='Voltar' 
+                  onPress={()=> {
+                  navigation.navigate({
+                    name:'Truth',
+                    params: {itemDesafioszsz: itemDesafioszsz},
+                    merge: true,
+                })
+            }}>            
           </Button>
+        </View>
+        <View>
+          <Text>{itemDesafioszsz}</Text>
         </View>
    </SafeAreaView>
  );
 }
+
+
 const styles= StyleSheet.create({
     input:{
     borderColor: '#eee',
@@ -48,10 +58,10 @@ const styles= StyleSheet.create({
     paddingLeft:10,
       },
       addWrapper:{
-        width:60,
-        height: 60,
+        width:360,
+        height: 360,
         backgroundColor:'#FFF',
-        borderRadius: 60,
+        borderRadius: 360,
         justifyContent:'center',
         alignItems:'center',
         borderColor:'#C0C0C0',
@@ -60,4 +70,5 @@ const styles= StyleSheet.create({
       addText:{
 
       }
-})
+})/// quando eu ovltar eu apenas tenho que arranjar um metodo de como passar dados entre telas, pra juntar
+// esses 2 arrays.

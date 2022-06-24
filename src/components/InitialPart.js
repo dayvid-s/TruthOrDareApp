@@ -6,12 +6,11 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-
 export default function ({navigation}){
   return( 
   <View style={styles.container} >
       <View style={{height: ('5%')}} > 
-        <Text style={styles.lettersOne}  >Dayvid</Text>
+        <Text style={styles.lettersOne}  >Dayvid  </Text>
         <Text style={{  alignSelf:'center'}} >_________</Text>
         <Text style={styles.lettersTwo} >HARD</Text>
     </View>
