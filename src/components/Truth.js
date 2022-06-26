@@ -24,13 +24,9 @@ export default function Truth()  {
   const navigation = useNavigation();
   const route = useRoute()
   React.useEffect(() => {
-    if(route.params?.itemDesafioszsz){ 
-      var colardesafio = (route.params.itemDesafioszsz).slice
-  //  var adicionar=colardesafio.push(route.params.itemDesafioszsz) // aqui tem que ser um append, e não uma cópia  
-      console.warn(route.params.itemDesafioszsz.typeof)
-      console.log(typeof route.params.itemDesafioszsz)
+    if(route.params?.itemDesafioszsz){
       
-
+      
 }
   }, [route.params?.itemDesafioszsz])
 
@@ -44,7 +40,7 @@ export default function Truth()  {
   return(
         <View style={styles.container} >
             <View style={{height: ('5%')}} > 
-              <Text style={styles.lettersOne}  >Dayvid{route.params?.itemDesafioszsz}</Text>
+              <Text style={styles.lettersOne}  >Dayvid</Text>
               <TouchableOpacity onPress={() => {navigation.goBack()}}  >
                  <Icon name='left' size={30} color='#ff09de'/>
               </TouchableOpacity>

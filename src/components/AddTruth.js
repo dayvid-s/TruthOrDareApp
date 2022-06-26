@@ -12,9 +12,12 @@ export default function AddTruth() {
   const handleAddDesafio=() =>{
     setItemDesafio([...itemDesafiosz, desafiosz])
     setDesafiosz(null) 
+    console.log(itemDesafioszsz)
   }
  var  itemDesafioszsz =[...itemDesafiosz]
-  return (
+
+ 
+ return (
    <SafeAreaView style={styles.input} >
         <TextInput placeholder='Escolha uma verdade' value={desafiosz} 
         onChangeText={text => setDesafiosz(text)} maxLength={25} ></TextInput>
