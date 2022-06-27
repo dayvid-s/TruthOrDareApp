@@ -1,77 +1,112 @@
-import React,{useState} from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, {useState, useEffect} from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity,Dimensions, Button } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native';
 
+
 export default function AddDare() {
-  const navigation = useNavigation()
+    const navigation = useNavigation()
 
-  const [desafiosz, setDesafiosz] = useState()
-  const [itemDesafiosz, setItemDesafio] = useState([])
 
-  const handleAddDesafio=() =>{
-    setItemDesafio([...itemDesafiosz, desafiosz])
-    setDesafiosz(null) 
-    console.log(itemDesafioszsz)
-  }
- var  itemDesafioszsz =[...itemDesafiosz]
+    const [inputBoxValue, setInputBoxValue] = useState("")
+    
+    const [storageDataList, setStorageDataList]= useState([])
 
- 
- return (
-   <SafeAreaView style={styles.input} >
-        <TextInput placeholder='Escolha uma verdade' value={desafiosz} 
-        onChangeText={text => setDesafiosz(text)} maxLength={25} ></TextInput>
+    useEffect( ()=>{
+        async function tempFunction (){ 
+        await getItemList()
+        }
+
+        tempFunction()
+
+        return()=>{} 
+    }, [])
+
+    const addItemToList = async ()=>{
+        try{
+            storageDataList.push(inputBoxValue)
+
+
+            const output= JSON.stringify(storageDataList)
+
+            console.log(output)
+            await AsyncStorage.setItem("itemList", output)
+            setInputBoxValue('')
+
+
+            alert("Data is added")
+        } catch(err){
+            console.log(err)
+        }
+    }
+    const getItemList = async()=>{
+        try{
+          const data = await AsyncStorage.getItem("itemList")
+          
+          const output = JSON.parse(data)
+
+          setStorageDataList(output)    
+
+        }catch (err) { 
+            console.log(err)
+        }
+    }
+    return (
+   <View style={styles.container} >
+   <TextInput
+    style={styles.inputBox} 
+    value={inputBoxValue}
+    placeholder="Enter data"
+    onChangeText ={(value) =>setInputBoxValue(value)} />
+   <TouchableOpacity style={styles.addButton} onPress={() => addItemToList()} >
+        <Text style={{color:'#fff'}}>Add</Text>
+   </TouchableOpacity>
+    <View style={styles.list}>
         
-        <TouchableOpacity onPress={() => handleAddDesafio()} >
-          <View style={styles.addWrapper} >
-           
-            <Text style={styles.addText} >+</Text>
-          </View>
-        </TouchableOpacity>
-        {/* / O ARRAY ESTÁ FEITO ( QUANDO VOLTAR AQUI SÓ VENHA FAZER  UM JEITO DE JUNTAR ESSE ARRAY COM OS DESAFIOS) */}
-        <View><Text> {itemDesafiosz.length}</Text></View>
-
-
-        <View>
+    <View>
           <Button title='Voltar' 
                   onPress={()=> {
                   navigation.navigate({
-                    name:'Truth',
-                    params: {itemDesafioszsz: itemDesafioszsz},
+                    name:'PlayChallenges',
+                    params: {storageDataList: storageDataList},
                     merge: true,
                 })
             }}>            
           </Button>
         </View>
-        <View>
-          <Text>{itemDesafioszsz}</Text>
-        </View>
-   </SafeAreaView>
+
+    <Text style={{fontSize:20, fontWeight:'bold', marginBottom:30}} >Array List</Text>
+   
+   {storageDataList.map((item,index) =>{
+    return<Text style={{marginVertical:10}} key={index}>{item}</Text>
+    
+   })}
+    </View>
+   </View>
  );
 }
-
-
-const styles= StyleSheet.create({
-    input:{
-    borderColor: '#eee',
-    borderWidth: 1,
-    borderRadius:4,
-    height:40,
-    marginHorizontal:20,
-    paddingLeft:10,
-      },
-      addWrapper:{
-        width:360,
-        height: 360,
-        backgroundColor:'#FFF',
-        borderRadius: 360,
+const {width} = Dimensions.get('screen')
+const styles = StyleSheet.create({
+    container:{
+        flex:1
+    },
+    inputBox:{
+        borderWidth: 2,
+        borderColor: 'black',
+        marginVertical: 10,
+        marginHorizontal: 8,
+    }, 
+    addButton:{
+    width: width -20,
+    backgroundColor: 'blue',
+    marginHorizontal: 10,
+    alignItems: 'center',
+    padding:10
+    },
+    list:{
+        flex:1,
         justifyContent:'center',
         alignItems:'center',
-        borderColor:'#C0C0C0',
-        borderWidth: 1,
-      },
-      addText:{
 
-      }
-})/// quando eu ovltar eu apenas tenho que arranjar um metodo de como passar dados entre telas, pra juntar
-// esses 2 arrays.
+    }
+})

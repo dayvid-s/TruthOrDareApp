@@ -3,9 +3,8 @@
 import React, {useState} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import desafios from './desafios';
-import { useRoute } from '@react-navigation/native';
 
 const shuffle=()=>{
   var currentIndex = desafios.length, temporaryValue, randomIndex
@@ -16,11 +15,9 @@ const shuffle=()=>{
       desafios[currentIndex] = desafios[randomIndex];
       desafios[randomIndex] = temporaryValue;
   }}
-// o array vazio é length 0, e assim por diante. agora preciso fazer com que
-// esse numero seja adicionado conforme tem o clique
+
 shuffle(desafios)
-export default function Truth()  {
-  
+export default function PlayChallenges()  {
   const navigation = useNavigation();
   const route = useRoute()
   React.useEffect(() => {
@@ -29,14 +26,16 @@ export default function Truth()  {
     //eu consegui caralho, eu posso fazer o mesmo agora, simplesmente route.params?.storageDataList na posição setnumerodesafio
     //
   }
-  }, [route.params?.itemDesafioszsz])
+  }, [])
 
-  const [numerodesafio, setNumeroDesafio] = useState([])
-  const addDesafio=()=>{
-    // aqui precisa de uma condição, pq senao vai chegar num nivel que não tem mais desafio
-    setNumeroDesafio(numerodesafio+1)
-  
+  const [numerodesafio, setNumeroDesafio] = useState(0) // the length just worked with this array,
+                                                         // he don't work with usestate(0)
+  const addDesafio=()=>{   if (desafios.length-1 > numerodesafio ) {                       
+    setNumeroDesafio(numerodesafio+1)} else{
+      setNumeroDesafio(0)
+    }
   }
+  // aqui precisa de uma condição, pq senao vai chegar num nivel que não tem mais desafio
 
   return(
         <View style={styles.container} >
@@ -48,16 +47,13 @@ export default function Truth()  {
               <Text style={styles.lettersTwo} >HARD</Text>
           </View>
              <View style={{justifyContent:'space-evenly'}}  >
-       
-             <View >
-               <Text style={styles.lettersThree} 
-               >TRUTH
-               </Text>    
-             </View>
              <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
-             
              <View>
-               <Text style={{fontSize:28,textAlign:'center'}} >{desafios[numerodesafio.length]} </Text>
+               <Text style={{fontSize:28,textAlign:'center'}} >{desafios[numerodesafio]} </Text>
+                <Text>
+                  {console.log('numerodesafio', numerodesafio)}
+                  {console.log('desafios[numerodesafio.length]', [desafios.length])}
+                </Text>
             </View>
 
               <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
@@ -69,11 +65,15 @@ export default function Truth()  {
                 <Icon name='reload1' size={70} color='#ff09de' />
                 </TouchableOpacity>
               </View>
-              <View>
-                 <Icon name='caretright' size={70} color='#ff09de'/>
+              
+              <View >
+                <TouchableOpacity onPress={() => {navigation.goBack()}} >
+                  <Icon name='caretright' size={70} color='#ff09de'/>
+                </TouchableOpacity>
               </View>
+              
               <View style={{left:20}}>
-                <TouchableOpacity onPress={()=> navigation.push('AddTruth')}>
+                <TouchableOpacity onPress={()=> navigation.push('AddDare')}>
                 <Icon name='pluscircle' size={70} color='#ff09de' />
                  </TouchableOpacity>
               </View>

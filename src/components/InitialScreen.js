@@ -16,7 +16,7 @@ export default function ({navigation}){
     </View>
        <View style={{justifyContent:'space-evenly'}}  >
  
-       <TouchableOpacity onPress={()=> navigation.push('Truth')} >
+       <TouchableOpacity onPress={()=> navigation.push('PlayTruth')} >
          <Text style={styles.lettersThree} 
          >TRUTH
          </Text>    
@@ -25,7 +25,12 @@ export default function ({navigation}){
        <Text style={{fontSize:28,textAlign:'center',color:('#De2674'), fontWeight:('300')}}
             >RANDOM CHANCE</Text>
        <Text style={{  alignSelf:'center'}} >  _________</Text>
-       <Text style={styles.lettersThree}>DARE</Text>
+       
+
+       <TouchableOpacity onPress={()=> navigation.push('PlayChallenges')} >
+          <Text style={styles.lettersThree}>DARE</Text>
+       </TouchableOpacity>
+        
      </View>
      
      <View style={{flexDirection:'row'}} >

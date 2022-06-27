@@ -1,8 +1,8 @@
-const desafios =['Quem você levaria dessa roda para uma ilha deserta?',
-'O que você faria com 1 milhão de reais agora?',
-'Qual é a sua maior vergonha na vida?',
-'Se você pudesse mudar algo em você, o que seria?',
-'Qual foi o sonho mais estranho que você já teve?'
+const desafios =['Ligar para o ex ou para ex e dizer “Oi, sumido(a)',
+'Mandar uma imagem aleatória por mensagem para o pai ou mãe e esperar a resposta',
+'Mostrar para o grupo o que falou nas 3 últimas conversas do WhatsApp',
+'Mostrar para o grupo as 5 últimas fotos da galeria do celular',
+'Dizer ao grupo quem foi a pessoa que você já beijou e foi o melhor beijo da sua vida;',
  ]
 
 export default desafios
