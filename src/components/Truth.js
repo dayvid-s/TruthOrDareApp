@@ -24,10 +24,11 @@ export default function Truth()  {
   const navigation = useNavigation();
   const route = useRoute()
   React.useEffect(() => {
-    if(route.params?.itemDesafioszsz){
-      
-      
-}
+    if(route.params?.storageDataList){
+    console.log("🚀 ~ file: Truth.js ~ line 28 ~ React.useEffect ~ route.params?.storageDataList", route.params?.storageDataList)
+    //eu consegui caralho, eu posso fazer o mesmo agora, simplesmente route.params?.storageDataList na posição setnumerodesafio
+    //
+  }
   }, [route.params?.itemDesafioszsz])
 
   const [numerodesafio, setNumeroDesafio] = useState([])
@@ -40,7 +41,7 @@ export default function Truth()  {
   return(
         <View style={styles.container} >
             <View style={{height: ('5%')}} > 
-              <Text style={styles.lettersOne}  >Dayvid</Text>
+              <Text style={styles.lettersOne}  >Dayvid </Text>
               <TouchableOpacity onPress={() => {navigation.goBack()}}  >
                  <Icon name='left' size={30} color='#ff09de'/>
               </TouchableOpacity>
