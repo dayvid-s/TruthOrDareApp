@@ -1,34 +1,58 @@
-import { View, Text, TouchableHighlight } from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity,Dimensions, Button } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useNavigation } from '@react-navigation/native';
 
-const desafios =['sup', 'jack', 'sub', 'fuc','szzz', 'msmmss','sup', 'jack', 'sub', 'fuc','szzz', 'msmmss'
-,'sup', 'jack', 'sub', 'fuc','szzz', 'msmmss','sup', 'jack', 'sub', 'fuc','szzz', 'msmmss',
-'sup', 'jack', 'sub', 'fuc','szzz', 'msmmss','sup', 'jack', 'sub', 'fuc','szzz', 'msmmss'
-]
-const shuffle=()=>{
-var currentIndex = desafios.length, temporaryValue, randomIndex
-while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = desafios[currentIndex];
-    desafios[currentIndex] = desafios[randomIndex];
-    desafios[randomIndex] = temporaryValue;
-    console.log(desafios)
-}
-}
- 
-export default function teste() {
-    const [desafios, mudardesafio] = useState(shuffle(desafios))
-     
+
+export default function AddDare() {
+    const [inputBoxValue, setInputBoxValue] = useState('')
+
+    const addItemToList = async ()=>{
+        try{
+          await AsyncStorage.setItem("itemList", inputBoxValue)
+        setInputBoxValue('')
+          alert("Data is added")
+        }catch(err){
+            console.log(err);
+        }
+    }
     return (
-    <View>
-        
-        <TouchableHighlight>
-          <Text> 
-          {console.log(desafios)}
-          </Text>
-         
-        </TouchableHighlight>
+    <View style={styles.container}>
+        <TextInput
+    style={styles.inputBox} 
+    value={inputBoxValue}
+    placeholder="Enter data"
+    onChangeText ={value =>setInputBoxValue(value)} />
+   
+        <TouchableOpacity style={styles.addButton} onPress={()=>addItemToList()}>
+            <Text style={{color:'#fff'}} >Add</Text>
+        </TouchableOpacity>
     </View>
-  )
+    );
 }
+
+const {width} = Dimensions.get('screen')
+const styles = StyleSheet.create({
+    container:{
+        flex:1
+    },
+    inputBox:{
+        borderWidth: 2,
+        borderColor: 'black',
+        marginVertical: 10,
+        marginHorizontal: 8,
+    }, 
+    addButton:{
+    width: width -20,
+    backgroundColor: 'blue',
+    marginHorizontal: 10,
+    alignItems: 'center',
+    padding:10
+    },
+    list:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center',
+
+    }
+})

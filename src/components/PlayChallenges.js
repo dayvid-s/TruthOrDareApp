@@ -18,15 +18,18 @@ const shuffle=()=>{
 
 shuffle(desafios)
 export default function PlayChallenges()  {
+  
   const navigation = useNavigation();
   const route = useRoute()
   React.useEffect(() => {
     if(route.params?.storageDataList){
-    console.log("🚀 ~ file: Truth.js ~ line 28 ~ React.useEffect ~ route.params?.storageDataList", route.params?.storageDataList)
-    //eu consegui caralho, eu posso fazer o mesmo agora, simplesmente route.params?.storageDataList na posição setnumerodesafio
+    console.log("🚀 ~ file: Truth.js ~ line 28 ~ React.useEffect ~ route.params?.storageDataList",
+     route.params?.storageDataList)
+    //eu consegui caralho, eu posso fazer o mesmo agora, 
+    //simplesmente route.params?.storageDataList na posição [numerodesafio]
     //
   }
-  }, [])
+  }, )
 
   const [numerodesafio, setNumeroDesafio] = useState(0) // the length just worked with this array,
                                                          // he don't work with usestate(0)
@@ -50,10 +53,6 @@ export default function PlayChallenges()  {
              <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
              <View>
                <Text style={{fontSize:28,textAlign:'center'}} >{desafios[numerodesafio]} </Text>
-                <Text>
-                  {console.log('numerodesafio', numerodesafio)}
-                  {console.log('desafios[numerodesafio.length]', [desafios.length])}
-                </Text>
             </View>
 
               <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
