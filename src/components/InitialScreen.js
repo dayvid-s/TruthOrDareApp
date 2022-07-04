@@ -5,8 +5,23 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 export default function ({navigation}){
+
+  
+  const retrieveData = async () => {
+    const storedToken = await AsyncStorage.getItem('itemList');
+    console.log(storedToken)
+    return
+  };
+  React.useEffect(() => {
+    retrieveData();
+  }, []);
+
+
+    
   return( 
   <View style={styles.container} >
       <View style={{height: ('5%')}} > 
@@ -24,8 +39,7 @@ export default function ({navigation}){
        <Text style={{  alignSelf:'center'}} >  _________</Text>
        <Text style={{fontSize:28,textAlign:'center',color:('#De2674'), fontWeight:('300')}}
             >RANDOM CHANCE</Text>
-       <Text style={{  alignSelf:'center'}} >  _________</Text>
-       
+       <Text style={{  alignSelf:'center'}} >  _________</Text>   
 
        <TouchableOpacity onPress={()=> navigation.push('PlayChallenges')} >
           <Text style={styles.lettersThree}>DARE</Text>

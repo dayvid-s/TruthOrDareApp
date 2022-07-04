@@ -3,14 +3,11 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity,Dimensions, Button 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native';
 
-
 export default function AddDare() {
     const navigation = useNavigation()
 
-
     const [inputBoxValue, setInputBoxValue] = useState("")
-    
-    const [storageDataList, setStorageDataList]= useState([])
+    const [storageDareList, setStorageDareList] =useState([])
 
     useEffect( ()=>{
         async function tempFunction (){ 
@@ -21,15 +18,14 @@ export default function AddDare() {
 
         return()=>{} 
     }, [])
-
+    
     const addItemToList = async ()=>{
         try{
-            storageDataList.push(inputBoxValue)
+            storageDareList.push(inputBoxValue)
 
 
-            const output= JSON.stringify(storageDataList)
+            const output= JSON.stringify(storageDareList)
 
-            console.log(output)
             await AsyncStorage.setItem("itemList", output)
             setInputBoxValue('')
 
@@ -45,7 +41,7 @@ export default function AddDare() {
           
           const output = JSON.parse(data)
 
-          setStorageDataList(output)    
+          setStorageDareList(output)    
 
         }catch (err) { 
             console.log(err)
@@ -56,7 +52,7 @@ export default function AddDare() {
    <TextInput
     style={styles.inputBox} 
     value={inputBoxValue}
-    placeholder="Enter data"
+    placeholder="Enter Dare"
     onChangeText ={(value) =>setInputBoxValue(value)} />
    <TouchableOpacity style={styles.addButton} onPress={() => addItemToList()} >
         <Text style={{color:'#fff'}}>Add</Text>
@@ -67,20 +63,18 @@ export default function AddDare() {
           <Button title='Voltar' 
                   onPress={()=> {
                   navigation.navigate({
-                    name:'PlayChallenges',
-                    params: {storageDataList: storageDataList},
-                    merge: true,
+                    name:'PlayChallenges' 
                 })
             }}>            
           </Button>
         </View>
-
-    <Text style={{fontSize:20, fontWeight:'bold', marginBottom:30}} >Array List</Text>
+            <Text>{storageDareList}</Text>
+            <Text style={{fontSize:20, fontWeight:'bold', marginBottom:30}} >Array List</Text>
    
-   {storageDataList.map((item,index) =>{
+   {storageDareList.map((item,index) =>{
     return<Text style={{marginVertical:10}} key={index}>{item}</Text>
     
-   })}
+   })}  
     </View>
    </View>
  );
