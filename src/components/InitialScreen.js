@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,21 +6,29 @@ import {
   TouchableOpacity
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Context } from '../.././context/Provider';
+import AddDare from './AddDare';
 
+
+//TODO: try understand use reducer, and all hooks
 
 export default function ({navigation}){
 
+  const {desafiosgg, setDesafio} = useContext(Context)
   
+
   const retrieveData = async () => {
-    const storedToken = await AsyncStorage.getItem('itemList');
-    console.log(storedToken)
+    const pullDare = await AsyncStorage.getItem('itemList');
+    const transDare = JSON.parse(pullDare)
+    var challengesOfUser = [...desafiosgg, ...transDare]
+    console.log('este é a fusão dos 2 desafios',challengesOfUser)
     return
   };
   React.useEffect(() => {
     retrieveData();
   }, []);
 
-
+  
     
   return( 
   <View style={styles.container} >
@@ -41,7 +49,10 @@ export default function ({navigation}){
             >RANDOM CHANCE</Text>
        <Text style={{  alignSelf:'center'}} >  _________</Text>   
 
-       <TouchableOpacity onPress={()=> navigation.push('PlayChallenges')} >
+       <TouchableOpacity onPress={()=> navigation.navigate('PlayChallenges', 
+          // {challengesOfUser: challengesOfUser,
+             {desafiosgg: desafiosgg })} >
+          
           <Text style={styles.lettersThree}>DARE</Text>
        </TouchableOpacity>
         

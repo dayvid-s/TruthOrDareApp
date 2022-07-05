@@ -42,7 +42,6 @@ export default function AddDare() {
           const output = JSON.parse(data)
 
           setStorageDareList(output)    
-
         }catch (err) { 
             console.log(err)
         }
