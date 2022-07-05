@@ -5,7 +5,7 @@ import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import desafios from './desafios';
-
+// console.log(challengesOfUser)
 const shuffle=()=>{
   var currentIndex = desafios.length, temporaryValue, randomIndex
   while (0 !== currentIndex) {
@@ -18,28 +18,17 @@ const shuffle=()=>{
 
 shuffle(desafios)
 export default function PlayChallenges()  {
-  
   const navigation = useNavigation();
   const route = useRoute()
-  React.useEffect(() => {
-    if(route.params?.storageDataList){
-    console.log("🚀 ~ file: Truth.js ~ line 28 ~ React.useEffect ~ route.params?.storageDataList",
-     route.params?.storageDataList)
-    //eu consegui caralho, eu posso fazer o mesmo agora, 
-    //simplesmente route.params?.storageDataList na posição [numerodesafio]
-    //
-  }
-  }, )
-
+  
   const [numerodesafio, setNumeroDesafio] = useState(0) // the length just worked with this array,
                                                          // he don't work with usestate(0)
-  const addDesafio=()=>{   if (desafios.length-1 > numerodesafio ) {                       
+  const addDesafio=()=>{   if (route.params.challengesOfUser.length-1 > numerodesafio ) {                       
     setNumeroDesafio(numerodesafio+1)} else{
       setNumeroDesafio(0)
     }
   }
-  // aqui precisa de uma condição, pq senao vai chegar num nivel que não tem mais desafio
-
+  
   return(
         <View style={styles.container} >
             <View style={{height: ('5%')}} > 
@@ -51,9 +40,13 @@ export default function PlayChallenges()  {
           </View>
              <View style={{justifyContent:'space-evenly'}}  >
              <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
-             <View>
+             {/* <View>
                <Text style={{fontSize:28,textAlign:'center'}} >{desafios[numerodesafio]} </Text>
+            </View> */}
+            <View>
+               <Text style={{fontSize:28,textAlign:'center'}} >{route.params.challengesOfUser[numerodesafio]} </Text>
             </View>
+
 
               <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
              </View>

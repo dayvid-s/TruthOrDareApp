@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,24 +9,37 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Context } from '../.././context/Provider';
 import AddDare from './AddDare';
 
-
+//TODO: THE NEXT: YOU NEED UNDERSTAND HOW USE WITH ASSINCRONOUS FUNCTION
 //TODO: try understand use reducer, and all hooks
+
 
 export default function ({navigation}){
 
   const {desafiosgg, setDesafio} = useContext(Context)
+  const [challengesOfUser, sechallengesOfUser] = useState()
   
 
   const retrieveData = async () => {
     const pullDare = await AsyncStorage.getItem('itemList');
     const transDare = JSON.parse(pullDare)
-    var challengesOfUser = [...desafiosgg, ...transDare]
-    console.log('este é a fusão dos 2 desafios',challengesOfUser)
+    await pullDare
+    sechallengesOfUser ([...desafiosgg, ...transDare]) 
+    
     return
   };
   React.useEffect(() => {
     retrieveData();
   }, []);
+
+  const handleaDvance = async () => {
+    await retrieveData()
+    console.log(challengesOfUser)
+     navigation.navigate('PlayChallenges', 
+     {challengesOfUser: challengesOfUser,
+       desafiosgg: desafiosgg }) 
+
+    return
+  };
 
   
     
@@ -48,10 +61,16 @@ export default function ({navigation}){
        <Text style={{fontSize:28,textAlign:'center',color:('#De2674'), fontWeight:('300')}}
             >RANDOM CHANCE</Text>
        <Text style={{  alignSelf:'center'}} >  _________</Text>   
-
+{/* 
        <TouchableOpacity onPress={()=> navigation.navigate('PlayChallenges', 
           // {challengesOfUser: challengesOfUser,
              {desafiosgg: desafiosgg })} >
+          
+          <Text style={styles.lettersThree}>DARE</Text>
+       </TouchableOpacity>
+         */}
+         
+       <TouchableOpacity onPress={handleaDvance} >
           
           <Text style={styles.lettersThree}>DARE</Text>
        </TouchableOpacity>
