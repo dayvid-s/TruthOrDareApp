@@ -4,26 +4,24 @@ import React, {useState} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import desafios from './desafios';
-// console.log(challengesOfUser)
-const shuffle=()=>{
-  var currentIndex = desafios.length, temporaryValue, randomIndex
-  while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-      temporaryValue = desafios[currentIndex];
-      desafios[currentIndex] = desafios[randomIndex];
-      desafios[randomIndex] = temporaryValue;
-  }}
 
-shuffle(desafios)
-export default function PlayChallenges()  {
-  const navigation = useNavigation();
-  const route = useRoute()
-  
-  const [numerodesafio, setNumeroDesafio] = useState(0) // the length just worked with this array,
-                                                         // he don't work with usestate(0)
-  const addDesafio=()=>{   if (route.params.challengesOfUser.length-1 > numerodesafio ) {                       
+
+  export default function PlayChallenges()  {
+    const navigation = useNavigation();
+    const route = useRoute()
+    const challengesOfUser = route.params.challengesOfUser
+    const shuffle=()=>{
+      var currentIndex = challengesOfUser.length, temporaryValue, randomIndex
+      while (0 !== currentIndex) {
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+          temporaryValue = challengesOfUser[currentIndex];
+          challengesOfUser[currentIndex] = challengesOfUser[randomIndex];
+          challengesOfUser[randomIndex] = temporaryValue;
+      }}
+    shuffle(challengesOfUser)
+  const [numerodesafio, setNumeroDesafio] = useState(0) 
+  const addDesafio=()=>{   if (challengesOfUser.length-1 > numerodesafio ) {                       
     setNumeroDesafio(numerodesafio+1)} else{
       setNumeroDesafio(0)
     }
@@ -44,7 +42,7 @@ export default function PlayChallenges()  {
                <Text style={{fontSize:28,textAlign:'center'}} >{desafios[numerodesafio]} </Text>
             </View> */}
             <View>
-               <Text style={{fontSize:28,textAlign:'center'}} >{route.params.challengesOfUser[numerodesafio]} </Text>
+               <Text style={{fontSize:28,textAlign:'center'}} >{challengesOfUser[numerodesafio]} </Text>
             </View>
 
 

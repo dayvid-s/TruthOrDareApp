@@ -62,7 +62,7 @@ export default function AddDare() {
           <Button title='Voltar' 
                   onPress={()=> {
                   navigation.navigate({
-                    name:'PlayChallenges' 
+                    name:'InitialScreen' 
                 })
             }}>            
           </Button>

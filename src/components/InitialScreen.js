@@ -1,4 +1,5 @@
 import React, {useContext, useState} from 'react';
+
 import {
   StyleSheet,
   Text,
@@ -7,7 +8,6 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Context } from '../.././context/Provider';
-import AddDare from './AddDare';
 
 //TODO: THE NEXT: YOU NEED UNDERSTAND HOW USE WITH ASSINCRONOUS FUNCTION
 //TODO: try understand use reducer, and all hooks
@@ -16,14 +16,14 @@ import AddDare from './AddDare';
 export default function ({navigation}){
 
   const {desafiosgg, setDesafio} = useContext(Context)
-  const [challengesOfUser, sechallengesOfUser] = useState()
+  const [challengesOfUser, setchallengesOfUser] = useState()
   
 
   const retrieveData = async () => {
     const pullDare = await AsyncStorage.getItem('itemList');
     const transDare = JSON.parse(pullDare)
     await pullDare
-    sechallengesOfUser ([...desafiosgg, ...transDare]) 
+    setchallengesOfUser ([...desafiosgg, ...transDare]) 
     
     return
   };
@@ -46,7 +46,11 @@ export default function ({navigation}){
   return( 
   <View style={styles.container} >
       <View style={{height: ('5%')}} > 
+        <View style={{flexDirection: 'row'}}>
         <Text style={styles.lettersOne}  >Dayvid  </Text>
+        
+        </View>
+
         <Text style={{  alignSelf:'center'}} >_________</Text>
         <Text style={styles.lettersTwo} >HARD</Text>
     </View>
@@ -99,7 +103,8 @@ const styles = StyleSheet.create({
       fontSize:30,
       color:('#ff09de'),
       alignSelf:'center',
-      
+      textAlign:'center',
+      left: 130
   },
   lettersTwo:{
     fontSize:20,
