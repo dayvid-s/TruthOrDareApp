@@ -15,15 +15,15 @@ import { Context } from '../.././context/Provider';
 
 export default function ({navigation}){
 
-  const {desafiosgg, setDesafio} = useContext(Context)
-  const [challengesOfUser, setchallengesOfUser] = useState()
+  const {initialChallenges, setInitialChallenges} = useContext(Context)
+  const [challengesOfUser, setChallengesOfUser] = useState()
   
 
   const retrieveData = async () => {
-    const pullDare = await AsyncStorage.getItem('itemList');
-    const transDare = JSON.parse(pullDare)
-    await pullDare
-    setchallengesOfUser ([...desafiosgg, ...transDare]) 
+    const pullChallenge = await AsyncStorage.getItem('itemList'); // pullChallenge consiste em  
+    const transDare = JSON.parse(pullChallenge)         //recuperar os desafios do asyncstorage
+    await pullChallenge                                 //pela chave.
+    setChallengesOfUser ([...initialChallenges, ...transDare]) 
     
     return
   };
@@ -36,7 +36,7 @@ export default function ({navigation}){
     console.log(challengesOfUser)
      navigation.navigate('PlayChallenges', 
      {challengesOfUser: challengesOfUser,
-       desafiosgg: desafiosgg }) 
+       initialChallenges: initialChallenges }) 
 
     return
   };
@@ -68,7 +68,7 @@ export default function ({navigation}){
 {/* 
        <TouchableOpacity onPress={()=> navigation.navigate('PlayChallenges', 
           // {challengesOfUser: challengesOfUser,
-             {desafiosgg: desafiosgg })} >
+             {initialChallenges: initialChallenges })} >
           
           <Text style={styles.lettersThree}>DARE</Text>
        </TouchableOpacity>

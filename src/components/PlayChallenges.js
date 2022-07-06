@@ -3,12 +3,9 @@
 import React, {useState} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
-import { useNavigation, useRoute } from '@react-navigation/native';
 
 
-  export default function PlayChallenges()  {
-    const navigation = useNavigation();
-    const route = useRoute()
+  export default function PlayChallenges({navigation,route})  {
     const challengesOfUser = route.params.challengesOfUser
     const shuffle=()=>{
       var currentIndex = challengesOfUser.length, temporaryValue, randomIndex
@@ -20,10 +17,10 @@ import { useNavigation, useRoute } from '@react-navigation/native';
           challengesOfUser[randomIndex] = temporaryValue;
       }}
     shuffle(challengesOfUser)
-  const [numerodesafio, setNumeroDesafio] = useState(0) 
-  const addDesafio=()=>{   if (challengesOfUser.length-1 > numerodesafio ) {                       
-    setNumeroDesafio(numerodesafio+1)} else{
-      setNumeroDesafio(0)
+  const [challengeNumber, setChallengeNumber] = useState(0) 
+  const addDesafio=()=>{   if (challengesOfUser.length-1 > challengeNumber ) {                       
+    setChallengeNumber(challengeNumber+1)} else{
+      setChallengeNumber(0)
     }
   }
   
@@ -39,10 +36,10 @@ import { useNavigation, useRoute } from '@react-navigation/native';
              <View style={{justifyContent:'space-evenly'}}  >
              <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
              {/* <View>
-               <Text style={{fontSize:28,textAlign:'center'}} >{desafios[numerodesafio]} </Text>
+               <Text style={{fontSize:28,textAlign:'center'}} >{desafios[challengeNumber]} </Text>
             </View> */}
             <View>
-               <Text style={{fontSize:28,textAlign:'center'}} >{challengesOfUser[numerodesafio]} </Text>
+               <Text style={{fontSize:28,textAlign:'center'}} >{challengesOfUser[challengeNumber]} </Text>
             </View>
 
 

@@ -5,9 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function AddDare() {
     const navigation = useNavigation()
-
     const [inputBoxValue, setInputBoxValue] = useState("")
-    const [storageDareList, setStorageDareList] =useState([])
+    const [userChallengesList, addUserChallenges] =useState([])
 
     useEffect( ()=>{
         async function tempFunction (){ 
@@ -21,16 +20,12 @@ export default function AddDare() {
     
     const addItemToList = async ()=>{
         try{
-            storageDareList.push(inputBoxValue)
-
-
-            const output= JSON.stringify(storageDareList)
-
+            userChallengesList.push(inputBoxValue)
+            const output= JSON.stringify(userChallengesList)
             await AsyncStorage.setItem("itemList", output)
             setInputBoxValue('')
-
-
             alert("Data is added")
+
         } catch(err){
             console.log(err)
         }
@@ -38,10 +33,8 @@ export default function AddDare() {
     const getItemList = async()=>{
         try{
           const data = await AsyncStorage.getItem("itemList")
-          
           const output = JSON.parse(data)
-
-          setStorageDareList(output)    
+          addUserChallenges(output)    
         }catch (err) { 
             console.log(err)
         }
@@ -67,10 +60,10 @@ export default function AddDare() {
             }}>            
           </Button>
         </View>
-            <Text>{storageDareList}</Text>
+            <Text>{userChallengesList}</Text>
             <Text style={{fontSize:20, fontWeight:'bold', marginBottom:30}} >Array List</Text>
    
-   {storageDareList.map((item,index) =>{
+   {userChallengesList.map((item,index) =>{
     return<Text style={{marginVertical:10}} key={index}>{item}</Text>
     
    })}  
