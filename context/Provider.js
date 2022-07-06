@@ -1,10 +1,10 @@
 import React,{useState, createContext, useContext} from 'react';
-import desafios from './../src/components/desafios';
+import initialChallenges from '../src/components/initialChallenges';
 
 export const Context = createContext()
 
 export default function Provider({children}){ 
-    const [desafiosgg, setDesafio] = useState(desafios)
+    const [desafiosgg, setDesafio] = useState(initialChallenges)
   
 
     return(
