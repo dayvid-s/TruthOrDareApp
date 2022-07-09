@@ -6,7 +6,6 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Context } from '../.././context/Provider';
 
 //TODO: THE NEXT: YOU NEED UNDERSTAND HOW USE WITH ASSINCRONOUS FUNCTION
@@ -16,32 +15,6 @@ import { Context } from '../.././context/Provider';
 export default function ({navigation}){
 
   const {initialChallenges, setInitialChallenges} = useContext(Context)
-  const [challengesOfUser, setChallengesOfUser] = useState()
-  
-
-  const retrieveData = async () => {
-    const pullChallenge = await AsyncStorage.getItem('itemList'); // pullChallenge consiste em  
-    const transDare = JSON.parse(pullChallenge)         //recuperar os desafios do asyncstorage
-    await pullChallenge                                 //pela chave.
-    setChallengesOfUser ([...initialChallenges, ...transDare]) 
-    
-    return
-  };
-  React.useEffect(() => {
-    retrieveData();
-  }, []);
-
-  const handleaDvance = async () => {
-    await retrieveData()
-    console.log(challengesOfUser)
-     navigation.navigate('PlayChallenges', 
-     {challengesOfUser: challengesOfUser,
-       initialChallenges: initialChallenges }) 
-
-    return
-  };
-
-  
     
   return( 
   <View style={styles.container} >
@@ -74,7 +47,7 @@ export default function ({navigation}){
        </TouchableOpacity>
          */}
          
-       <TouchableOpacity onPress={handleaDvance} >
+       <TouchableOpacity onPress={()=> navigation.push('PlayChallenges')} >
           
           <Text style={styles.lettersThree}>DARE</Text>
        </TouchableOpacity>

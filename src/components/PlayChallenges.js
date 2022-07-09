@@ -1,24 +1,19 @@
 // man, the documentation it's ur bestfriend, was just you go at the
 // documentation of react navigation, that you would solved this problem of params
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
+import { Context } from '../../context/Provider';
+import ShuffleArray from './ShuffleArray';
 
+export default function PlayChallenges({navigation,route})  {
 
-  export default function PlayChallenges({navigation,route})  {
-    const challengesOfUser = route.params.challengesOfUser
-    const shuffle=()=>{
-      var currentIndex = challengesOfUser.length, temporaryValue, randomIndex
-      while (0 !== currentIndex) {
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex -= 1;
-          temporaryValue = challengesOfUser[currentIndex];
-          challengesOfUser[currentIndex] = challengesOfUser[randomIndex];
-          challengesOfUser[randomIndex] = temporaryValue;
-      }}
-    shuffle(challengesOfUser)
+  const {initialChallenges, userChallenges, showOnlyCustoms, showUserAndInitial} = useContext(Context)
   const [challengeNumber, setChallengeNumber] = useState(0) 
-  const addDesafio=()=>{   if (challengesOfUser.length-1 > challengeNumber ) {                       
+  var allChallenges =[...initialChallenges,...userChallenges]
+  ShuffleArray(initialChallenges)
+
+  const addDesafio=()=>{   if (initialChallenges.length-1 > challengeNumber ) {                       
     setChallengeNumber(challengeNumber+1)} else{
       setChallengeNumber(0)
     }
@@ -29,20 +24,29 @@ import Icon  from 'react-native-vector-icons/AntDesign';
             <View style={{height: ('5%')}} > 
               <Text style={styles.lettersOne}  >Dayvid </Text>
               <TouchableOpacity onPress={() => {navigation.goBack()}}  >
-                 <Icon name='left' size={30} color='#ff09de'/>
+                <Icon name='left' size={30} color='#ff09de'/>
               </TouchableOpacity>
               <Text style={styles.lettersTwo} >HARD</Text>
           </View>
-             <View style={{justifyContent:'space-evenly'}}  >
-             <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
-             {/* <View>
-               <Text style={{fontSize:28,textAlign:'center'}} >{desafios[challengeNumber]} </Text>
-            </View> */}
+            <View style={{justifyContent:'space-evenly'}}  >
+            <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
             <View>
-               <Text style={{fontSize:28,textAlign:'center'}} >{challengesOfUser[challengeNumber]} </Text>
+            <View>
+
+              {showUserAndInitial?<Text style={styles.conditionalrender} 
+              >{allChallenges[challengeNumber]}</Text>
+              : <Text> {initialChallenges[challengeNumber]}</Text>}
+              
+              {showOnlyCustoms&& <Text style={styles.conditionalrender} 
+              >{userChallenges[challengeNumber]} </Text>}
+                      
+                      {/* Possiveis 3 renderizações. sendo elas: */}
+                      {/* Desafios do usuario e desafio inicial (allChallenges)  */}
+                      {/* Apenas desafio iniciais, que já vem pre-estabelecidos no app.(initialChallenges) */}
+                      {/* Apenas desafios criados pelo usuario (userChallenges) */}
             </View>
 
-
+            </View>
               <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
              </View>
            
@@ -62,12 +66,12 @@ import Icon  from 'react-native-vector-icons/AntDesign';
               <View style={{left:20}}>
                 <TouchableOpacity onPress={()=> navigation.push('AddDare')}>
                 <Icon name='pluscircle' size={70} color='#ff09de' />
-                 </TouchableOpacity>
+                  </TouchableOpacity>
               </View>
-           </View>
+            </View>
       
         </View>
-           
+      
       )}
   
       const styles = StyleSheet.create({
@@ -96,7 +100,10 @@ import Icon  from 'react-native-vector-icons/AntDesign';
           fontSize:40,
           color:('#ff09de'),
           alignSelf:'center',
-          
+        }, 
+         conditionalrender:{
+          fontSize:28,
+          textAlign:'center'
       
       }
       });

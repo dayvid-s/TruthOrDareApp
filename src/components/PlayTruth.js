@@ -1,29 +1,28 @@
 // man, the documentation it's ur bestfriend, was just you go at the
 // documentation of react navigation, that you would solved this problem of params
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { Context } from '../../context/Provider';
 
+export default function PlayTruth({navigation,route})  {
+  const {initialTruths} = useContext(Context)
+  console.log(initialTruths)
+  const shuffle=()=>{
+    var currentIndex = initialTruths.length, temporaryValue, randomIndex
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = initialTruths[currentIndex];
+        initialTruths[currentIndex] = initialTruths[randomIndex];
+        initialTruths[randomIndex] = temporaryValue;
+    }}
+  shuffle(initialTruths)
 
-  export default function PlayChallenges()  {
-    const navigation = useNavigation();
-    const route = useRoute()
-    const challengesOfUser = route.params.challengesOfUser
-    const shuffle=()=>{
-      var currentIndex = challengesOfUser.length, temporaryValue, randomIndex
-      while (0 !== currentIndex) {
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex -= 1;
-          temporaryValue = challengesOfUser[currentIndex];
-          challengesOfUser[currentIndex] = challengesOfUser[randomIndex];
-          challengesOfUser[randomIndex] = temporaryValue;
-      }}
-    shuffle(challengesOfUser)
-  const [numerodesafio, setNumeroDesafio] = useState(0) 
-  const addDesafio=()=>{   if (challengesOfUser.length-1 > numerodesafio ) {                       
-    setNumeroDesafio(numerodesafio+1)} else{
-      setNumeroDesafio(0)
+  const [challengeNumber, setChallengeNumber] = useState(0) 
+  const addDesafio=()=>{   if (initialTruths.length-1 > challengeNumber ) {                       
+    setChallengeNumber(challengeNumber+1)} else{
+      setChallengeNumber(0)
     }
   }
   
@@ -32,17 +31,14 @@ import { useNavigation, useRoute } from '@react-navigation/native';
             <View style={{height: ('5%')}} > 
               <Text style={styles.lettersOne}  >Dayvid </Text>
               <TouchableOpacity onPress={() => {navigation.goBack()}}  >
-                 <Icon name='left' size={30} color='#ff09de'/>
+                <Icon name='left' size={30} color='#ff09de'/>
               </TouchableOpacity>
               <Text style={styles.lettersTwo} >HARD</Text>
           </View>
-             <View style={{justifyContent:'space-evenly'}}  >
-             <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
-             {/* <View>
-               <Text style={{fontSize:28,textAlign:'center'}} >{desafios[numerodesafio]} </Text>
-            </View> */}
+            <View style={{justifyContent:'space-evenly'}}  >
+            <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
             <View>
-               <Text style={{fontSize:28,textAlign:'center'}} >{challengesOfUser[numerodesafio]} </Text>
+              <Text style={{fontSize:28,textAlign:'center'}} >{initialTruths[challengeNumber]} </Text>
             </View>
 
 
@@ -63,14 +59,14 @@ import { useNavigation, useRoute } from '@react-navigation/native';
               </View>
               
               <View style={{left:20}}>
-                <TouchableOpacity onPress={()=> navigation.push('AddDare')}>
+                <TouchableOpacity onPress={()=> navigation.push('AddTruth')}>
                 <Icon name='pluscircle' size={70} color='#ff09de' />
-                 </TouchableOpacity>
+                  </TouchableOpacity>
               </View>
-           </View>
+            </View>
       
         </View>
-           
+      
       )}
   
       const styles = StyleSheet.create({

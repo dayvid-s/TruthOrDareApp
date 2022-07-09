@@ -1,44 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity,Dimensions, Button } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native';
+import {Context} from '../../context/Provider'
 
 export default function AddDare() {
     const navigation = useNavigation()
     const [inputBoxValue, setInputBoxValue] = useState("")
-    const [userChallengesList, addUserChallenges] =useState([])
-
-    useEffect( ()=>{
-        async function tempFunction (){ 
-        await getItemList()
-        }
-
-        tempFunction()
-
-        return()=>{} 
-    }, [])
     
-    const addItemToList = async ()=>{
-        try{
-            userChallengesList.push(inputBoxValue)
-            const output= JSON.stringify(userChallengesList)
-            await AsyncStorage.setItem("itemList", output)
-            setInputBoxValue('')
-            alert("Data is added")
+    const{userChallenges, setUserChallenges} =useContext(Context)
+    
+    const addItemToList = ()=>{
 
-        } catch(err){
-            console.log(err)
-        }
-    }
-    const getItemList = async()=>{
-        try{
-          const data = await AsyncStorage.getItem("itemList")
-          const output = JSON.parse(data)
-          addUserChallenges(output)    
-        }catch (err) { 
-            console.log(err)
-        }
-    }
+        setUserChallenges([...userChallenges, inputBoxValue])
+        setInputBoxValue(null)
+        console.log(userChallenges)
+    } 
     return (
    <View style={styles.container} >
    <TextInput
@@ -54,16 +30,13 @@ export default function AddDare() {
     <View>
           <Button title='Voltar' 
                   onPress={()=> {
-                  navigation.navigate({
-                    name:'InitialScreen' 
-                })
+                  navigation.goBack()
             }}>            
           </Button>
         </View>
-            <Text>{userChallengesList}</Text>
             <Text style={{fontSize:20, fontWeight:'bold', marginBottom:30}} >Array List</Text>
    
-   {userChallengesList.map((item,index) =>{
+   {userChallenges.map((item,index) =>{
     return<Text style={{marginVertical:10}} key={index}>{item}</Text>
     
    })}  
