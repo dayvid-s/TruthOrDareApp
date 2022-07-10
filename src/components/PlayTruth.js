@@ -7,7 +7,6 @@ import { Context } from '../../context/Provider';
 
 export default function PlayTruth({navigation,route})  {
   const {initialTruths} = useContext(Context)
-  console.log(initialTruths)
   const shuffle=()=>{
     var currentIndex = initialTruths.length, temporaryValue, randomIndex
     while (0 !== currentIndex) {

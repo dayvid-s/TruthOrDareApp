@@ -1,6 +1,6 @@
 // man, the documentation it's ur bestfriend, was just you go at the
 // documentation of react navigation, that you would solved this problem of params
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext,useEffect} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
 import { Context } from '../../context/Provider';
@@ -10,11 +10,12 @@ export default function PlayChallenges({navigation,route})  {
 
   const {initialChallenges, userChallenges, showOnlyCustoms, showUserAndInitial} = useContext(Context)
   const [challengeNumber, setChallengeNumber] = useState(0) 
-  var allChallenges =[...initialChallenges,...userChallenges]
-  ShuffleArray(initialChallenges)
-
-  const addDesafio=()=>{   if (initialChallenges.length-1 > challengeNumber ) {                       
-    setChallengeNumber(challengeNumber+1)} else{
+  var allChallenges = [...initialChallenges, ...userChallenges]
+  ShuffleArray(allChallenges)
+  console.log(allChallenges)
+  const addDesafio=()=>{  
+    if (allChallenges.length-1 > challengeNumber ) {                       
+      setChallengeNumber(challengeNumber+1)} else{
       setChallengeNumber(0)
     }
   }
