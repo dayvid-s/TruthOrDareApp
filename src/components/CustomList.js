@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const Task = (props) => {
+const CustomList = (props) => {
 
   return (
     <View style={styles.item}>
@@ -9,7 +9,9 @@ const Task = (props) => {
         <View style={styles.square}></View>
         <Text style={styles.itemText}>{props.text}</Text>
       </View>
-      <View style={styles.circular}></View>
+      <TouchableOpacity onPress={props.remove}> 
+        <Text style={styles.boxRemove}>X</Text>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -34,21 +36,19 @@ const styles = StyleSheet.create({
   square: { //  o quadradrado ali do lado esquerdo
     width: 24,
     height: 24,
-    backgroundColor: '#55BCF6',
-    opacity: 0.4,   // era um azul bem forte, mas alterou com a opacidade, teste dps.
-    borderRadius: 5,    // isso fez o quadrado ficar mais um pouco redondo rsrs teste ao extremo dps
+    backgroundColor: '#ff09de',
+    // opacity: 0.4,   // era um azul bem forte, mas alterou com a opacidade, teste dps.
+    borderRadius: 25,    // isso fez o quadrado ficar mais um pouco redondo rsrs teste ao extremo dps
     marginRight: 15, // aqui afastou mais o item de texto para a direita 
   },
   itemText: {
     maxWidth: '80%', // se caso não colocar isso, ele empurra o circulo para fora da tela 
   },
-  circular: {   // bolinha do lado direito
-    width: 12,
-    height: 12,
-    borderColor: '#55BCF6',
-    borderWidth: 2,
-    borderRadius: 5,
+  boxRemove:{
+    fontSize:25,
+    textAlign:'center',
+    color:'#F80EC8',
   },
 });
 
-export default Task;
+export default CustomList

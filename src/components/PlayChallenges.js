@@ -10,27 +10,50 @@ export default function PlayChallenges({navigation,route})  {
 
   const {initialChallenges, userChallenges, showOnlyCustoms, showUserAndInitial} = useContext(Context)
   const [challengeNumber, setChallengeNumber] = useState(0) 
+  const {players, addPlayers} = useContext(Context)
+  const {nextPlayer, setNextPlayer} = useContext(Context)
+  
   var allChallenges = [...initialChallenges, ...userChallenges]
   ShuffleArray(allChallenges)
   console.log(allChallenges)
-  const addDesafio=()=>{  
+  const countChallenges=()=>{  
     if (allChallenges.length-1 > challengeNumber ) {                       
-      setChallengeNumber(challengeNumber+1)} else{
+      setChallengeNumber(challengeNumber+1)} 
+    else{
       setChallengeNumber(0)
     }
   }
+
+  function changePosition(arr, from, to) {
+    arr.splice(to, 0, arr.splice(from, 1)[0]);
+    return arr;
+};
+
+  const challengeConcluded =()=>{
+    // addPlayers(changePosition(players,0,1))
+    // console.log(players)
+
+    if (players.length -1> nextPlayer ) {                       
+      setNextPlayer(nextPlayer+1)} 
+    else{
+      setNextPlayer(0)
+    }
   
+
+    navigation.goBack()
+  }
   return(
         <View style={styles.container} >
             <View style={{height: ('5%')}} > 
-              <Text style={styles.lettersOne}  >Dayvid </Text>
+              <Text style={styles.lettersOne}>{players[nextPlayer]}</Text>
+              {console.log(players)}
               <TouchableOpacity onPress={() => {navigation.goBack()}}  >
                 <Icon name='left' size={30} color='#ff09de'/>
               </TouchableOpacity>
               <Text style={styles.lettersTwo} >HARD</Text>
           </View>
             <View style={{justifyContent:'space-evenly'}}  >
-            <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
+            <Text style={{  alignSelf:'center',color:('#De2674')}} >______________</Text>
             <View>
             <View>
 
@@ -53,13 +76,13 @@ export default function PlayChallenges({navigation,route})  {
            
            <View style={{flexDirection:'row', alignSelf:'center', justifyContent:'space-between'  } } >
               <View style={{right:20}}  >
-                <TouchableOpacity onPress={addDesafio}  >
+                <TouchableOpacity onPress={countChallenges}  >
                 <Icon name='reload1' size={70} color='#ff09de' />
                 </TouchableOpacity>
               </View>
               
               <View >
-                <TouchableOpacity onPress={() => {navigation.goBack()}} >
+                <TouchableOpacity onPress={challengeConcluded} >
                   <Icon name='caretright' size={70} color='#ff09de'/>
                 </TouchableOpacity>
               </View>

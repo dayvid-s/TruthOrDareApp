@@ -13,15 +13,27 @@ import { Context } from '../.././context/Provider';
 
 
 export default function ({navigation}){
-
-  const {initialChallenges, setInitialChallenges} = useContext(Context)
-    
+  const {players, addPlayers} = useContext(Context)
+  const {nextPlayer, setNextPlayer} = useContext(Context)
+  
+  function changePosition(arr, from, to) {
+    arr.splice(to, 0, arr.splice(from, 1)[0]);
+    return arr;
+  };
+  
+  const challengeavanar =()=>{
+    addPlayers(changePosition(players,0,1))
+    console.log(players)
+    navigation.push('PlayChallenges')
+  }
+  
   return( 
   <View style={styles.container} >
       <View style={{height: ('5%')}} > 
-        <View style={{flexDirection: 'row'}}>
-        <Text style={styles.lettersOne}  >Dayvid  </Text>
-        
+        <View >
+        <Text style={styles.lettersOne}  >{players[nextPlayer]}</Text>
+        {console.log(players)}
+
         </View>
 
         <Text style={{  alignSelf:'center'}} >_________</Text>
@@ -31,12 +43,12 @@ export default function ({navigation}){
  
        <TouchableOpacity onPress={()=> navigation.push('PlayTruth')} >
          <Text style={styles.lettersThree} 
-         >TRUTH
+         >VERDADE
          </Text>    
        </TouchableOpacity>
        <Text style={{  alignSelf:'center'}} >  _________</Text>
        <Text style={{fontSize:28,textAlign:'center',color:('#De2674'), fontWeight:('300')}}
-            >RANDOM CHANCE</Text>
+            >ESCOLHA ALEATÓRIA</Text>
        <Text style={{  alignSelf:'center'}} >  _________</Text>   
 {/* 
        <TouchableOpacity onPress={()=> navigation.navigate('PlayChallenges', 
@@ -49,15 +61,15 @@ export default function ({navigation}){
          
        <TouchableOpacity onPress={()=> navigation.push('PlayChallenges')} >
           
-          <Text style={styles.lettersThree}>DARE</Text>
+          <Text style={styles.lettersThree}>DESAFIO</Text>
        </TouchableOpacity>
         
      </View>
      
      <View style={{flexDirection:'row'}} >
-          <Text style={{fontSize:25, textAlign:'center', color:'white', width:'80%',
-        fontWeight:'300'
-        }}>Include "Custom"?</Text>
+          <Text style={{fontSize:22, color:'white',alignSelf:'center', // esse bagulho tem que fi
+        fontWeight:'300'           //car no meio 
+        }}>Incluir "Personalizadas"?</Text>
      </View>
 
   </View>
@@ -77,7 +89,6 @@ const styles = StyleSheet.create({
       color:('#ff09de'),
       alignSelf:'center',
       textAlign:'center',
-      left: 130
   },
   lettersTwo:{
     fontSize:20,
