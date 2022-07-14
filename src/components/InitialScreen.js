@@ -16,16 +16,6 @@ export default function ({navigation}){
   const {players, addPlayers} = useContext(Context)
   const {nextPlayer, setNextPlayer} = useContext(Context)
   
-  function changePosition(arr, from, to) {
-    arr.splice(to, 0, arr.splice(from, 1)[0]);
-    return arr;
-  };
-  
-  const challengeavanar =()=>{
-    addPlayers(changePosition(players,0,1))
-    console.log(players)
-    navigation.push('PlayChallenges')
-  }
   
   return( 
   <View style={styles.container} >

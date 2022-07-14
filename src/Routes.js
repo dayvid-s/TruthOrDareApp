@@ -8,14 +8,14 @@ import AddDare from './components/AddDare';
 import AddTruth from './components/AddTruth';
 import PlayTruth from './components/PlayTruth';
 import CustomList from './components/CustomList';
-import CreateAndAddPlayers from './components/CreateAndAddPlayers';
+import CreateAndSetPlayers from './components/CreateAndSetPlayers';
 const Stack = createNativeStackNavigator();
 
 function Routes(){
     return(
-        <Stack.Navigator initialRouteName='CreateAndAddPlayers'
+        <Stack.Navigator initialRouteName='CreateAndSetPlayers'
         screenOptions={{headerShown: false}}>
-        <Stack.Screen name='CreateAndAddPlayers' component={CreateAndAddPlayers} />
+        <Stack.Screen name='CreateAndSetPlayers' component={CreateAndSetPlayers} />
         <Stack.Screen name='InitialScreen' component={InitialScreen} />
         <Stack.Screen name='PlayChallenges' component={PlayChallenges}  />    
         <Stack.Screen name='AddTruth' component={AddTruth} />

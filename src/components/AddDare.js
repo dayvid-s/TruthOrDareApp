@@ -9,10 +9,9 @@ import { KeyboardAvoidingView,
     ScrollView 
   } from 'react-native';
   import {Context} from '../../context/Provider'
-  import CustomList from './CustomList'
   
 
-export default function App() {
+export default function App({navigation}) {
   const [inputBoxValue, setInputBoxValue] = useState();
   const {userChallenges, setUserChallenges} = useContext(Context)
 
@@ -51,10 +50,16 @@ export default function App() {
           {
             userChallenges.map((item, index) => {
               return (
-                // <TouchableOpacity key={index}  onPress={() => handleRemoveChallenges (index)}>
-                  <CustomList text={item} key = {index}  remove={handleRemoveChallenges} /> 
-                // </TouchableOpacity>
-              )
+                    <View key={Math.random()*3} style={styles.item}>
+                      <View key={Math.random()*3} style={styles.itemLeft}>
+                      <View key={Math.random()*3} style={styles.square}></View>
+                      <Text key={Math.random()*3} style={styles.itemText}>{item}</Text>
+                    </View>
+                    <TouchableOpacity key={index} onPress={()=>handleRemoveChallenges(index)}> 
+                      <Text key={Math.random()*3} style={styles.boxRemove}>X</Text>
+                    </TouchableOpacity>
+                  </View>
+                )
             })
           }
         </View>
@@ -125,4 +130,35 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   addText: {},
+  item: { //envolve as tarefas, todas... é aquele espaço branco atrás, um padding
+    backgroundColor: '#FFF',
+    padding: 15,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between', //esse justify content tá basicamente
+      // empurrando o botão circular para o extremidade oposta
+    marginBottom: 20,
+  },
+  itemLeft: { // as tarefas estarão aqui
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap'  // se a tarefa ficar muito grande, ele vai passar pra 
+              //proxima linha, flexwrap
+  },
+  square: { //  o quadradrado ali do lado esquerdo
+    width: 24,
+    height: 24,
+    backgroundColor: '#ff09de',
+    // opacity: 0.4,   // era um azul bem forte, mas alterou com a opacidade, teste dps.
+    borderRadius: 25,    // isso fez o quadrado ficar mais um pouco redondo rsrs teste ao extremo dps
+    marginRight: 15, // aqui afastou mais o item de texto para a direita 
+  },
+  itemText: {
+    maxWidth: '80%', // se caso não colocar isso, ele empurra o circulo para fora da tela 
+  },
+  boxRemove:{
+    fontSize:25,
+    textAlign:'center',
+    color:'#F80EC8',}
 });

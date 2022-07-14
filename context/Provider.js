@@ -7,7 +7,7 @@ export default function Provider({children}){
     const [initialChallenges, setInitialChallenges] = useState(dataOfInitialChallenges)
     const [userChallenges, setUserChallenges] = useState([]) 
     const [showOnlyCustoms, setShowOnlyCustoms] = useState(false)
-    const [players, addPlayers] = useState(['Dayvid','Andressa','carlos','jomar'])
+    const [players, setPlayers] = useState(['Dayvid','Andressa','carlos','jomar'])
     const [nextPlayer, setNextPlayer] = useState(0)
     const [showUserAndInitial, setShowUserAndInitial] = useState(true)
     const [initialTruths, setInitialTruths] = useState(dataOfInitialTruths)
@@ -18,7 +18,7 @@ export default function Provider({children}){
             initialChallenges, setInitialChallenges,
             userChallenges, setUserChallenges,
             showOnlyCustoms, setShowOnlyCustoms, 
-            players, addPlayers,
+            players, setPlayers,
             nextPlayer, setNextPlayer,
             showUserAndInitial,setShowUserAndInitial, 
             initialTruths, setInitialTruths,

@@ -15,7 +15,6 @@ export default function PlayChallenges({navigation,route})  {
   
   var allChallenges = [...initialChallenges, ...userChallenges]
   ShuffleArray(allChallenges)
-  console.log(allChallenges)
   const countChallenges=()=>{  
     if (allChallenges.length-1 > challengeNumber ) {                       
       setChallengeNumber(challengeNumber+1)} 
@@ -24,10 +23,6 @@ export default function PlayChallenges({navigation,route})  {
     }
   }
 
-  function changePosition(arr, from, to) {
-    arr.splice(to, 0, arr.splice(from, 1)[0]);
-    return arr;
-};
 
   const challengeConcluded =()=>{
     // addPlayers(changePosition(players,0,1))
