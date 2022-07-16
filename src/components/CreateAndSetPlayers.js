@@ -10,10 +10,10 @@ import { KeyboardAvoidingView,
    Alert 
   } from 'react-native';
 import { Context } from '../../context/Provider';
-
+import Icon  from 'react-native-vector-icons/Octicons';
 
 export default function Appe({navigation}) {
-  const [inputBoxValue, setInputBoxValue] = useState();
+  const [inputBoxValue, setInputBoxValue] = useState('');
   const {players, setPlayers} = useContext(Context);
 
 
@@ -27,7 +27,7 @@ export default function Appe({navigation}) {
 
   }}
   const handleSetPlayers = () => {
-    if(inputBoxValue === null){
+    if(inputBoxValue == '' ){
       Alert.alert('Erro','Digite alguma coisa')
    
     }else{
@@ -49,11 +49,17 @@ export default function Appe({navigation}) {
         <Text style={styles.sectionTitle}>Jogadores:</Text>
        <TouchableOpacity onPress={advance}>
         <View style={styles.advance}>
-          <Text >{'=>'}</Text>
+          {/* <Text >{'=>'}</Text> */}
+          <Icon name='chevron-right' size={50} color='#ff09de'/>
+           {/* ionicons é brabo, 100% completo, ao inves do ant design
+            feather também é brabo, mas nao chega no nivel de ionicos
+            <Text style={{  alignSelf:'center',color:('#De2674')}} >______________</Text>
+            e fontisto também é brabo
+           */}
         </View>
        </TouchableOpacity>
       </View>
-    
+            
       {/* Added this scroll view to enable scrolling when list gets longer than the page */}
       <ScrollView
         contentContainerStyle={{
@@ -115,7 +121,6 @@ const styles = StyleSheet.create({
     left: 130 ,
     width: 60,
     height: 60,
-    backgroundColor: '#F80EC8',
     borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',

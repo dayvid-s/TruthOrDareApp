@@ -4,7 +4,7 @@ import Icon  from 'react-native-vector-icons/AntDesign';
 import { Context } from '../../context/Provider';
 import ShuffleArray from './ShuffleArray';
 
-export default function PlayChallenges({navigation,route})  {
+export default function PlayChallenges({navigation})  {
 
   const {initialChallenges, userChallenges} = useContext(Context)
   const [challengeNumber, setChallengeNumber] = useState(0) 
@@ -13,16 +13,16 @@ export default function PlayChallenges({navigation,route})  {
   const {showOnlyCustomsOfUser, setShowOnlyCustomsOfUser } = useContext(Context)  
   const {showUserAndInitial,setShowUserAndInitial } = useContext(Context)
   const {showTheInitial, setShowInitial} = useContext(Context)
-  
   var allChallenges = [...initialChallenges, ...userChallenges]
+  
   ShuffleArray(allChallenges)
-  const countChallenges=()=>{  
+
+  const countChallenges= ()=> {  
     if(showUserAndInitial== true){
       if (allChallenges.length-1 > challengeNumber ) {                       
         setChallengeNumber(challengeNumber+1)
       } 
       else{
-        console.log('deu merda aqui')
         setChallengeNumber(0)
       } 
 
@@ -43,21 +43,25 @@ export default function PlayChallenges({navigation,route})  {
       else{
         setChallengeNumber(0)
       } 
-    }
-}
-  const challengeConcluded =()=>{
-    // addPlayers(changePosition(players,0,1))
-    // console.log(players)
+    }}
 
+  
+  const challengeConcluded =()=>{
     if (players.length -1> nextPlayer ) {                       
       setNextPlayer(nextPlayer+1)} 
     else{
       setNextPlayer(0)
     }
-  
-
-    navigation.goBack()
+      navigation.goBack()
   }
+  useEffect(() => {
+    if(showOnlyCustomsOfUser == false && showUserAndInitial == false  ){
+      setShowInitial(true)
+    }
+}
+  ),[]
+
+
   return(
         <View style={styles.container} >
             <View style={{height: ('5%')}} >
@@ -156,22 +160,23 @@ export default function PlayChallenges({navigation,route})  {
             color:('#ff09de'),
             alignSelf:'center',
             
-        },
-        lettersTwo:{
-          fontSize:20,
-          color:('grey'),
+          },
+          lettersTwo:{
+            fontSize:20,
+            color:('grey'),
           fontStyle:('normal'),
-          fontWeight:('100'),
-          alignSelf:'center'
+          alignSelf:'center',
+          fontWeight:"500",
+          
         },
         lettersThree:{
           fontSize:40,
           color:('#ff09de'),
           alignSelf:'center',
         }, 
-         conditionalrender:{
+        conditionalrender:{
           fontSize:28,
-          textAlign:'center'
-      
+          textAlign:'center',
+          
       }
       });
