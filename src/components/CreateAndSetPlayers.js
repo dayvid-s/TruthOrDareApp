@@ -1,5 +1,14 @@
-import React, {useState, useContext} from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
+  import React, {useState, useContext} from 'react';
+import { KeyboardAvoidingView,
+   StyleSheet,
+   Text,
+   View,
+   TextInput,
+   TouchableOpacity,
+   Keyboard,
+   ScrollView,
+   Alert 
+  } from 'react-native';
 import { Context } from '../../context/Provider';
 
 
@@ -10,12 +19,22 @@ export default function Appe({navigation}) {
 
   const advance = () =>
    {
-    navigation.navigate('InitialScreen')
-  }
+    if(players.length >=2){
+      navigation.navigate('InitialScreen')
+
+    }
+  else{ Alert.alert('Erro','Você precisa de no minímo 2 jogadores.')
+
+  }}
   const handleSetPlayers = () => {
-    Keyboard.dismiss();
-    setPlayers([...players, inputBoxValue])
-    setInputBoxValue(null);
+    if(inputBoxValue === null){
+      Alert.alert('Erro','Digite alguma coisa')
+   
+    }else{
+            Keyboard.dismiss();
+            setPlayers([...players, inputBoxValue])
+            setInputBoxValue(null);
+    }
   }
 
   const complete = (index) => {
@@ -108,7 +127,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     left:80,
     fontSize: 33,
-    fontWeight: 'bold',
+    fontWeight: '400',
     color: '#ff09de'
   },
   items: {
@@ -142,7 +161,6 @@ const styles = StyleSheet.create({
   addText: {},
   item: {
     backgroundColor: '#FFF',
-    padding: 3,
     borderRadius: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -160,10 +178,11 @@ const styles = StyleSheet.create({
    },
   itemText: {
     maxWidth: '80%',
-    fontSize:28,
+    fontSize:25,
     width: 210,
     left:70 ,
-    textAlign: 'center'
+    textAlign: 'center',
+    // color:'#333',
     },boxRemove:{
   fontSize:25,
   textAlign:'center',

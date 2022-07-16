@@ -1,5 +1,3 @@
-// man, the documentation it's ur bestfriend, was just you go at the
-// documentation of react navigation, that you would solved this problem of params
 import React, {useState, useContext,useEffect} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
@@ -7,8 +5,15 @@ import { Context } from '../../context/Provider';
 import ShuffleArray from './ShuffleArray';
 
 export default function PlayTruths({navigation,route})  {
+  
+  const { initialTruths,userTruths,
+  players, nextPlayer, setNextPlayer,
+  showOnlyCustoms,showOnlyCustomsOfUser, 
+  showUserAndInitial,showTheInitial   } = useContext(Context)
+  
+  const [Number, setChallengeNumber] = useState(0) 
+  
 
-  const {initialTruths, userTruths, showOnlyCustoms, showUserAndInitial} = useContext(Context)
   const [truthNumber, setTruthNumber] = useState(0) 
   var allTruths = [...initialTruths, ...userTruths]
   ShuffleArray(allTruths)
@@ -27,10 +32,10 @@ export default function PlayTruths({navigation,route})  {
               <TouchableOpacity onPress={() => {navigation.goBack()}}  >
                 <Icon name='left' size={30} color='#ff09de'/>
               </TouchableOpacity>
-              <Text style={styles.lettersTwo} >HARD</Text>
+              <Text style={styles.lettersTwo} >Hora da verdade!</Text>
           </View>
             <View style={{justifyContent:'space-evenly'}}  >
-            <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
+            <Text style={{  alignSelf:'center',color:('#De2674')}} >______________</Text>
             <View>
             <View>
 
@@ -48,7 +53,7 @@ export default function PlayTruths({navigation,route})  {
             </View>
 
             </View>
-              <Text style={{  alignSelf:'center',color:('#De2674')}} >  ______________</Text>
+              <Text style={{  alignSelf:'center',color:('#De2674')}} >______________</Text>
              </View>
            
            <View style={{flexDirection:'row', alignSelf:'center', justifyContent:'space-between'  } } >
@@ -91,8 +96,7 @@ export default function PlayTruths({navigation,route})  {
         },
         lettersTwo:{
           fontSize:20,
-          color:('#ff66eb'),
-          color:('#be2596'),
+          color:('grey'),
           fontStyle:('normal'),
           fontWeight:('100'),
           alignSelf:'center'

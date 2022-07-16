@@ -14,6 +14,7 @@ import { KeyboardAvoidingView,
 export default function App({navigation}) {
   const [inputBoxValue, setInputBoxValue] = useState();
   const {userChallenges, setUserChallenges} = useContext(Context)
+  const {showOnlyCustomsOfUser, setShowOnlyCustomsOfUser} = useContext(Context)
 
   const handleAddChallenges = () => {
     if (inputBoxValue == null ){
@@ -26,9 +27,16 @@ export default function App({navigation}) {
     }
   }
   const handleRemoveChallenges = (index) => {
-    let itemsCopy = [...userChallenges];
-    itemsCopy.splice(index, 1);
-    setUserChallenges(itemsCopy)
+    if(userChallenges.length > 1){
+      let itemsCopy = [...userChallenges];
+      itemsCopy.splice(index, 1);
+      setUserChallenges(itemsCopy)
+    }else{
+      let itemsCopy = [...userChallenges];
+      itemsCopy.splice(index, 1);
+      setUserChallenges(itemsCopy)
+      setShowOnlyCustomsOfUser(false)
+    }
   }
 
   return (

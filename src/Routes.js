@@ -9,6 +9,7 @@ import AddTruth from './components/AddTruth';
 import PlayTruth from './components/PlayTruth';
 import CustomList from './components/CustomList';
 import CreateAndSetPlayers from './components/CreateAndSetPlayers';
+import Settings from './components/Settings';
 const Stack = createNativeStackNavigator();
 
 function Routes(){
@@ -22,6 +23,7 @@ function Routes(){
         <Stack.Screen name='AddDare' component={AddDare}  />
         <Stack.Screen name='PlayTruth' component={PlayTruth} />
         <Stack.Screen name='CustomList' component={CustomList} />
+        <Stack.Screen name='Settings' component={Settings} />
       </Stack.Navigator>
     )
 }
