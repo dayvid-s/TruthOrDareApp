@@ -1,81 +1,131 @@
 import React, {useState, useContext,useEffect} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
+import Ionicon  from 'react-native-vector-icons/Ionicons';
 import { Context } from '../../context/Provider';
 import ShuffleArray from './ShuffleArray';
 
-export default function PlayTruths({navigation,route})  {
-  
-  const { initialTruths,userTruths,
-  players, nextPlayer, setNextPlayer,
-  showOnlyCustoms,showOnlyCustomsOfUser, 
-  showUserAndInitial,showTheInitial   } = useContext(Context)
-  
-  const [Number, setChallengeNumber] = useState(0) 
-  
+export default function PlayTruth({navigation})  {
 
-  const [truthNumber, setTruthNumber] = useState(0) 
+  const {initialTruths, userTruths} = useContext(Context)
+  const [challengeNumber, setChallengeNumber] = useState(0) 
+  const {players, addPlayers} = useContext(Context)
+  const {nextPlayer, setNextPlayer} = useContext(Context)
+  const {showOnlyCustomsOfUser, setShowOnlyCustomsOfUser } = useContext(Context)  
+  const {showUserAndInitial,setShowUserAndInitial } = useContext(Context)
+  const {showTheInitial, setShowInitial} = useContext(Context)
   var allTruths = [...initialTruths, ...userTruths]
-  ShuffleArray(allTruths)
-  console.log(allTruths)
-  const countTruth=()=>{  
-    if (allTruths.length-1 > truthNumber ) {                       
-      setTruthNumber(truthNumber+1)} else{
-      setTruthNumber(0)
-    }
-  }
   
+  ShuffleArray(allTruths)
+
+  const reloadTruths= ()=> {  
+    if(showUserAndInitial== true){
+      if (allTruths.length-1 > challengeNumber ) {                       
+        setChallengeNumber(challengeNumber+1)
+      } 
+      else{
+        setChallengeNumber(0)
+      }}
+    if( showOnlyCustomsOfUser == true)
+      { if (userTruths.length-1 > challengeNumber ) {                       
+        setChallengeNumber(challengeNumber+1)} 
+        else{
+          setChallengeNumber(0)
+      }}
+    if(showTheInitial== true){
+      if (initialTruths.length-1 > challengeNumber ) {                       
+        setChallengeNumber(challengeNumber+1)
+      } 
+      else{
+        setChallengeNumber(0)
+      } 
+    }}
+
+  
+  const truthConcluded =()=>{
+    if (players.length -1> nextPlayer ) {                       
+      setNextPlayer(nextPlayer+1)} 
+    else{
+      setNextPlayer(0)
+    }
+      navigation.goBack()
+  }
+  useEffect(() => {
+    if(showOnlyCustomsOfUser == false && showUserAndInitial == false  ){
+      setShowInitial(true)
+    }
+}
+  ),[]
+
+
   return(
         <View style={styles.container} >
-            <View style={{height: ('5%')}} > 
-              <Text style={styles.lettersOne}  >Dayvid </Text>
-              <TouchableOpacity onPress={() => {navigation.goBack()}}  >
-                <Icon name='left' size={30} color='#ff09de'/>
-              </TouchableOpacity>
-              <Text style={styles.lettersTwo} >Hora da verdade!</Text>
-          </View>
-            <View style={{justifyContent:'space-evenly'}}  >
-            <Text style={{  alignSelf:'center',color:('#De2674')}} >______________</Text>
-            <View>
-            <View>
-
-              {showUserAndInitial?<Text style={styles.conditionalrender} 
-              >{allTruths[truthNumber]}</Text>
-              : <Text> {initialTruths[truthNumber]}</Text>}
+            <View  >
+              <Text style={styles.nameOfPlayer}>{players[nextPlayer]}</Text>
               
-              {showOnlyCustoms&& <Text style={styles.conditionalrender} 
-              >{userTruths[truthNumber]} </Text>}
+              <TouchableOpacity style={styles.iconGoBack}  onPress={() => {navigation.goBack()}}  >
+                <Icon name='left' size={28} color='#ff09de'/>
+              </TouchableOpacity>
+              
+              <Text style={styles.welcomeMessage} >Hora da verdade!</Text>
+            </View>
+            
+            <View >
+            <Text style={styles.underscore} >______________</Text>
+              {console.log('initial:',showTheInitial)}
+              {console.log('userandinitial',showUserAndInitial)}
+              {console.log('onlycustom',showOnlyCustomsOfUser)}
+              
+              {showUserAndInitial ==true  && <Text style={styles.truths} 
+              >{allTruths[challengeNumber]}</Text>}     
+              
+              {showTheInitial == true && <Text style={styles.truths} 
+              >{initialTruths[challengeNumber]}</Text>}     
+              
+              {showOnlyCustomsOfUser ==true && <Text style={styles.truths} 
+              >{userTruths[challengeNumber]}</Text>}     
+
                       
                       {/* Possiveis 3 renderizações. sendo elas: */}
-                      {/* Truths do usuario e Truth inicial (allTruths)  */}
-                      {/* Apenas Truth iniciais, que já vem pre-estabelecidos no app.(initialTruths) */}
-                      {/* Apenas Truths criados pelo usuario (userTruths) */}
+                      {/* Desafios do usuario e desafio inicial (allTruths)  */}
+                      {/* Apenas desafio iniciais, que já vem pre-estabelecidos no app.(initialChallenges) */}
+                      {/* Apenas desafios criados pelo usuario (userChallenges) */}
+                      {/* //esse && significa que se caso avançar pelaa validação  */}
+                      {/* a view inteira é renderizada  */}
+
+              <Text style={styles.underscore} >______________</Text>
             </View>
 
-            </View>
-              <Text style={{  alignSelf:'center',color:('#De2674')}} >______________</Text>
-             </View>
-           
-           <View style={{flexDirection:'row', alignSelf:'center', justifyContent:'space-between'  } } >
-              <View style={{right:20}}  >
-                <TouchableOpacity onPress={countTruth} >
-                <Icon name='reload1' size={70} color='#ff09de' />
+              {/* Now, the three icons. */}
+            
+          <View style={styles.wrapperOfIcons } >
+            
+              <View style={{left:-30}}  >
+                <TouchableOpacity onPress={reloadTruths}  >
+                  <View style={styles.bottomIcons} >
+                      <Icon name='reload1' size={30} color='white' />
+                  </View>
                 </TouchableOpacity>
               </View>
               
               <View >
-                <TouchableOpacity onPress={() => {navigation.goBack()}} >
-                  <Icon name='caretright' size={70} color='#ff09de'/>
+                <TouchableOpacity onPress={truthConcluded} >
+                  <View style={styles.bottomIcons} >
+                      <Icon name='caretright' size={30} color='white'/>
+                  </View>
                 </TouchableOpacity>
               </View>
-              
-              <View style={{left:20}}>
+                  
+              <View style={{right:-30}}>
                 <TouchableOpacity onPress={()=> navigation.push('AddTruth')}>
-                <Icon name='pluscircle' size={70} color='#ff09de' />
-                  </TouchableOpacity>
+                  <View style={styles.bottomIcons} >
+                    <Ionicon style={{left:13}} name='add-outline' size={43} color='white' >  </Ionicon>
+                  </View>
+                </TouchableOpacity>                
               </View>
-            </View>
-      
+            
+          </View>
+              
         </View>
       
       )}
@@ -83,32 +133,48 @@ export default function PlayTruths({navigation,route})  {
       const styles = StyleSheet.create({
         container:{
           backgroundColor: (`#000000`),
-          height:'100%',
           padding:20,
-          justifyContent:'space-between'
+          justifyContent:'space-between',
+          flex:1
           
         },
-        lettersOne:{  
-            fontSize:30,
-            color:('#ff09de'),
-            alignSelf:'center',
-            
-        },
-        lettersTwo:{
-          fontSize:20,
-          color:('grey'),
-          fontStyle:('normal'),
-          fontWeight:('100'),
-          alignSelf:'center'
-        },
-        lettersThree:{
-          fontSize:40,
+        nameOfPlayer:{  
+          fontSize:30,
           color:('#ff09de'),
           alignSelf:'center',
-        }, 
-         conditionalrender:{
+          justifyContent:'center',
+        },
+        welcomeMessage:{
+          fontSize:18,
+          color:('grey'),
+          fontStyle:('normal'),
+          alignSelf:'center',
+          fontWeight:"500",
+        },
+        iconGoBack:{
+          maxWidth:30,
+          marginVertical:-6,
+        },
+        underscore:{
+          alignSelf:'center',
+          color:('#De2674')
+        },
+        truths:{
           fontSize:28,
-          textAlign:'center'
-      
-      }
+          textAlign:'center',
+        },
+        wrapperOfIcons:{
+          flexDirection:'row',
+          alignSelf:'center', 
+          justifyContent:'space-between'  
+        },
+        bottomIcons:{
+          borderWidth:1,
+          borderRadius:100,
+          backgroundColor:'#ff09de',
+          width: 70,
+          height: 70,
+          justifyContent:'center',
+          alignItems: 'center',
+        }
       });

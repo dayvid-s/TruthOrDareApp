@@ -1,5 +1,4 @@
-// man, the documentation it's ur bestfriend, was just you go at the
-// documentation of react navigation, that you would solved this problem of params
+// ignore this page. deprecated, lol
 import React, {useState, useContext,useEffect} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';

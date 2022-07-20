@@ -9,7 +9,8 @@ import { KeyboardAvoidingView,
     ScrollView 
   } from 'react-native';
   import {Context} from '../../context/Provider'
-  
+  import  Icon  from 'react-native-vector-icons/Ionicons';
+
 
 export default function App({navigation}) {
   const [inputBoxValue, setInputBoxValue] = useState();
@@ -42,6 +43,12 @@ export default function App({navigation}) {
   return (
     <View style={styles.container}>
       {/* Added this scroll view to enable scrolling when list gets longer than the page */}
+
+      <TouchableOpacity style={styles.iconGoBack} onPress={()=>{ navigation.goBack()}}  >
+      <View style= {{right:-15, marginVertical:20}}>
+        <Icon name='arrow-back-outline' size={30} > </Icon>
+      </View>
+      </TouchableOpacity>
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1
@@ -49,12 +56,10 @@ export default function App({navigation}) {
         keyboardShouldPersistTaps='handled'
       >
 
-      {/* Today's Tasks */}
-      <View style={styles.tasksWrapper}>
+      <View style={styles.challengesWrapper}>
         <Text style={styles.sectionTitle}>Seja criativo(a), crie e remova seus próprios desafios!
         </Text>
         <View style={styles.items}>
-          {/* This is where the tasks will go! */}
           {
             userChallenges.map((item, index) => {
               return (
@@ -75,11 +80,10 @@ export default function App({navigation}) {
         
       </ScrollView>
 
-      {/* Write a task */}
       {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
       <KeyboardAvoidingView 
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.writeTaskWrapper}
+        style={styles.writeChallengesWrapper}
       >
         <TextInput style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setInputBoxValue(text)} />
         <TouchableOpacity onPress={() => handleAddChallenges()}>
@@ -98,7 +102,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000000',
   },
-  tasksWrapper: {
+  iconGoBack:{
+    maxWidth:30,
+    marginVertical:-6,
+    maxHeight:70
+  },
+  challengesWrapper: {
     paddingTop: 80,
     paddingHorizontal: 20,
   },
@@ -111,7 +120,7 @@ const styles = StyleSheet.create({
   items: {
     marginTop: 30,
   },
-  writeTaskWrapper: {
+  writeChallengesWrapper: {
     position: 'absolute',
     bottom: 60,
     width: '100%',
@@ -137,7 +146,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
   },
-  addText: {},
   item: { //envolve as tarefas, todas... é aquele espaço branco atrás, um padding
     backgroundColor: '#FFF',
     padding: 15,
@@ -154,16 +162,16 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap'  // se a tarefa ficar muito grande, ele vai passar pra 
               //proxima linha, flexwrap
   },
-  square: { //  o quadradrado ali do lado esquerdo
+  itemText: {
+    maxWidth: '80%', // se caso não colocar isso, ele empurra o x para fora da tela 
+  },
+  square: { // a bolinha ali
     width: 24,
     height: 24,
     backgroundColor: '#ff09de',
     // opacity: 0.4,   // era um azul bem forte, mas alterou com a opacidade, teste dps.
     borderRadius: 25,    // isso fez o quadrado ficar mais um pouco redondo rsrs teste ao extremo dps
     marginRight: 15, // aqui afastou mais o item de texto para a direita 
-  },
-  itemText: {
-    maxWidth: '80%', // se caso não colocar isso, ele empurra o circulo para fora da tela 
   },
   boxRemove:{
     fontSize:25,

@@ -50,7 +50,7 @@ export default function Appe({navigation}) {
        <TouchableOpacity onPress={advance}>
         <View style={styles.advance}>
           {/* <Text >{'=>'}</Text> */}
-          <Icon name='chevron-right' size={50} color='#ff09de'/>
+          <Icon name='chevron-right' size={38} color='#ff09de'/>
            {/* ionicons é brabo, 100% completo, ao inves do ant design
             feather também é brabo, mas nao chega no nivel de ionicos
             <Text style={{  alignSelf:'center',color:('#De2674')}} >______________</Text>
@@ -184,9 +184,9 @@ const styles = StyleSheet.create({
   itemText: {
     maxWidth: '80%',
     fontSize:25,
-    width: 210,
-    left:70 ,
-    textAlign: 'center',
+    width: 190,
+    left:20 ,
+    // textAlign: 'center',
     // color:'#333',
     },boxRemove:{
   fontSize:25,

@@ -1,6 +1,7 @@
 import React, {useState, useContext,useEffect} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
+import Ionicon  from 'react-native-vector-icons/Ionicons';
 import { Context } from '../../context/Provider';
 import ShuffleArray from './ShuffleArray';
 
@@ -17,26 +18,21 @@ export default function PlayChallenges({navigation})  {
   
   ShuffleArray(allChallenges)
 
-  const countChallenges= ()=> {  
+  const reloadChallenges= ()=> {  
     if(showUserAndInitial== true){
       if (allChallenges.length-1 > challengeNumber ) {                       
         setChallengeNumber(challengeNumber+1)
       } 
       else{
         setChallengeNumber(0)
-      } 
-
-        
-      }
+      }}
     if( showOnlyCustomsOfUser == true)
       { if (userChallenges.length-1 > challengeNumber ) {                       
         setChallengeNumber(challengeNumber+1)} 
         else{
           setChallengeNumber(0)
-      }      
-    }
+      }}
     if(showTheInitial== true){
-
       if (initialChallenges.length-1 > challengeNumber ) {                       
         setChallengeNumber(challengeNumber+1)
       } 
@@ -64,54 +60,49 @@ export default function PlayChallenges({navigation})  {
 
   return(
         <View style={styles.container} >
-            <View style={{height: ('5%')}} >
-              <View >
-                
-              <Text style={styles.lettersOne}>{players[nextPlayer]}</Text>
-              <View style={{marginVertical:-6}} >
-              <TouchableOpacity style={{maxWidth:30}}  onPress={() => {navigation.goBack()}}  >
-                <Icon name='left' size={30} color='#ff09de'/>
+            <View  >
+              <Text style={styles.nameOfPlayer}>{players[nextPlayer]}</Text>
+              
+              <TouchableOpacity style={styles.iconGoBack}  onPress={() => {navigation.goBack()}}  >
+                <Icon name='left' size={28} color='#ff09de'/>
               </TouchableOpacity>
+              
+              <Text style={styles.welcomeMessage} >Hora de pagar um desafio!</Text>
             </View>
-              <Text style={styles.lettersTwo} >Hora de pagar um desafio!</Text>
-                </View> 
-          </View>
-            <View style={{justifyContent:'space-evenly'}}  >
-            <Text style={{  alignSelf:'center',color:('#De2674')}} >______________</Text>
-            <View>
-            <View>
+            
+            <View >
+            <Text style={styles.underscore} >______________</Text>
               {console.log('initial:',showTheInitial)}
               {console.log('userandinitial',showUserAndInitial)}
               {console.log('onlycustom',showOnlyCustomsOfUser)}
               
-              {showUserAndInitial ==true  && <Text style={styles.conditionalrender} 
+              {showUserAndInitial ==true  && <Text style={styles.challenges} 
               >{allChallenges[challengeNumber]}</Text>}     
               
-              {showTheInitial == true && <Text style={styles.conditionalrender} 
+              {showTheInitial == true && <Text style={styles.challenges} 
               >{initialChallenges[challengeNumber]}</Text>}     
               
-
-              {showOnlyCustomsOfUser ==true && <Text style={styles.conditionalrender} 
+              {showOnlyCustomsOfUser ==true && <Text style={styles.challenges} 
               >{userChallenges[challengeNumber]}</Text>}     
+
                       
                       {/* Possiveis 3 renderizações. sendo elas: */}
                       {/* Desafios do usuario e desafio inicial (allChallenges)  */}
                       {/* Apenas desafio iniciais, que já vem pre-estabelecidos no app.(initialChallenges) */}
                       {/* Apenas desafios criados pelo usuario (userChallenges) */}
-                      {/* //esse && significa que se apenas essa renderização for veridica,  */}
-                      {/* apenas ela é renderizada.  */}
+                      {/* //esse && significa que se caso avançar pelaa validação  */}
+                      {/* a view inteira é renderizada  */}
+
+              <Text style={styles.underscore} >______________</Text>
             </View>
 
-            </View>
-              <Text style={{  alignSelf:'center',color:('#De2674')}} >______________</Text>
-             </View>
-           
-           <View style={{flexDirection:'row', alignSelf:'center', justifyContent:'space-between'  } } >
-              <View style={{right:30}}  >
-                <TouchableOpacity onPress={countChallenges}  >
-                  <View style={{borderWidth:1 , borderRadius:100, backgroundColor:'#ff09de',
-                    width: 70,height: 70, justifyContent:'center', alignItems: 'center',
-                    }} >
+              {/* Now, the three icons. */}
+            
+          <View style={styles.wrapperOfIcons } >
+            
+              <View style={{left:-30}}  >
+                <TouchableOpacity onPress={reloadChallenges}  >
+                  <View style={styles.bottomIcons} >
                       <Icon name='reload1' size={30} color='white' />
                   </View>
                 </TouchableOpacity>
@@ -119,30 +110,22 @@ export default function PlayChallenges({navigation})  {
               
               <View >
                 <TouchableOpacity onPress={challengeConcluded} >
-                  <View style={{borderWidth:1 , borderRadius:100, backgroundColor:'#ff09de',
-                      width: 70,height: 70, justifyContent:'center', alignItems: 'center',
-                      }} >
+                  <View style={styles.bottomIcons} >
                       <Icon name='caretright' size={30} color='white'/>
                   </View>
-                  
                 </TouchableOpacity>
               </View>
-              
-              <View style={{left:30}}>
-
-
+                  
+              <View style={{right:-30}}>
                 <TouchableOpacity onPress={()=> navigation.push('AddDare')}>
-              <View style={{borderWidth:1 , borderRadius:70, backgroundColor:'#ff09de',
-                      width: 70,height: 70, justifyContent:'center', alignItems: 'center',
-                        }} >
-                      <Text style={{fontSize:45,color:'white',marginVertical:-50 }} >+</Text>
-
+                  <View style={styles.bottomIcons} >
+                    <Ionicon style={{left:13}} name='add-outline' size={43} color='white' >  </Ionicon>
                   </View>
-                  </TouchableOpacity>                
-                  </View>
-
-            </View>
-      
+                </TouchableOpacity>                
+              </View>
+            
+          </View>
+              
         </View>
       
       )}
@@ -150,33 +133,48 @@ export default function PlayChallenges({navigation})  {
       const styles = StyleSheet.create({
         container:{
           backgroundColor: (`#000000`),
-          height:'100%',
           padding:20,
-          justifyContent:'space-between'
+          justifyContent:'space-between',
+          flex:1
           
         },
-        lettersOne:{  
-            fontSize:30,
-            color:('#ff09de'),
-            alignSelf:'center',
-            
-          },
-          lettersTwo:{
-            fontSize:20,
-            color:('grey'),
+        nameOfPlayer:{  
+          fontSize:30,
+          color:('#ff09de'),
+          alignSelf:'center',
+          justifyContent:'center',
+        },
+        welcomeMessage:{
+          fontSize:18,
+          color:('grey'),
           fontStyle:('normal'),
           alignSelf:'center',
           fontWeight:"500",
-          
         },
-        lettersThree:{
-          fontSize:40,
-          color:('#ff09de'),
+        iconGoBack:{
+          maxWidth:30,
+          marginVertical:-6,
+        },
+        underscore:{
           alignSelf:'center',
-        }, 
-        conditionalrender:{
+          color:('#De2674')
+        },
+        challenges:{
           fontSize:28,
           textAlign:'center',
-          
-      }
+        },
+        wrapperOfIcons:{
+          flexDirection:'row',
+          alignSelf:'center', 
+          justifyContent:'space-between'  
+        },
+        bottomIcons:{
+          borderWidth:1,
+          borderRadius:100,
+          backgroundColor:'#ff09de',
+          width: 70,
+          height: 70,
+          justifyContent:'center',
+          alignItems: 'center',
+        }
       });
