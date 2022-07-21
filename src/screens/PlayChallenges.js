@@ -3,8 +3,7 @@ import { View,Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
 import Ionicon  from 'react-native-vector-icons/Ionicons';
 import { Context } from '../../context/Provider';
-import ShuffleArray from './ShuffleArray';
-
+import ShuffleArray from '../components/ShuffleArray';
 export default function PlayChallenges({navigation})  {
 
   const {initialChallenges, userChallenges} = useContext(Context)

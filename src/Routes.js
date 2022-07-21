@@ -2,14 +2,13 @@ import React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import  InitialScreen from './components/InitialScreen'
-import PlayChallenges from './components/PlayChallenges';
-import AddDare from './components/AddDare';
-import AddTruth from './components/AddTruth';
-import PlayTruth from './components/PlayTruth';
-import CustomList from './components/CustomList';
-import CreateAndSetPlayers from './components/CreateAndSetPlayers';
-import Settings from './components/Settings';
+import  InitialScreen from './screens/InitialScreen'
+import PlayChallenges from './screens/PlayChallenges';
+import AddDare from './screens/AddDare';
+import AddTruth from './screens/AddTruth';
+import PlayTruth from './screens/PlayTruth';
+import CreateAndSetPlayers from './screens/CreateAndSetPlayers';
+import Settings from './screens/Settings';
 const Stack = createNativeStackNavigator();
 
 function Routes(){
@@ -22,7 +21,6 @@ function Routes(){
         <Stack.Screen name='AddTruth' component={AddTruth} />
         <Stack.Screen name='AddDare' component={AddDare}  />
         <Stack.Screen name='PlayTruth' component={PlayTruth} />
-        <Stack.Screen name='CustomList' component={CustomList} />
         <Stack.Screen name='Settings' component={Settings} />
       </Stack.Navigator>
     )

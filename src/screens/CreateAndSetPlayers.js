@@ -17,24 +17,20 @@ export default function Appe({navigation}) {
   const {players, setPlayers} = useContext(Context);
 
 
-  const advance = () =>
-   {
+  const advance = () =>{
     if(players.length >=2){
-      navigation.navigate('InitialScreen')
+      navigation.navigate('InitialScreen')}
+      else{ 
+        Alert.alert('Erro','Você precisa de no minímo 2 jogadores.')}}
 
-    }
-  else{ Alert.alert('Erro','Você precisa de no minímo 2 jogadores.')
 
-  }}
   const handleSetPlayers = () => {
     if(inputBoxValue == '' ){
-      Alert.alert('Erro','Digite alguma coisa')
-   
-    }else{
-            Keyboard.dismiss();
-            setPlayers([...players, inputBoxValue])
-            setInputBoxValue(null);
-    }
+      Alert.alert('Erro','Digite alguma coisa')}
+      else{  
+        Keyboard.dismiss();
+        setPlayers([...players, inputBoxValue])
+        setInputBoxValue(null);}
   }
 
   const complete = (index) => {
@@ -49,7 +45,6 @@ export default function Appe({navigation}) {
         <Text style={styles.sectionTitle}>Jogadores:</Text>
        <TouchableOpacity onPress={advance}>
         <View style={styles.advance}>
-          {/* <Text >{'=>'}</Text> */}
           <Icon name='chevron-right' size={38} color='#ff09de'/>
            {/* ionicons é brabo, 100% completo, ao inves do ant design
             feather também é brabo, mas nao chega no nivel de ionicos
