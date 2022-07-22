@@ -1,5 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
-
+import React, {useContext} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,9 +7,8 @@ import {
 } from 'react-native';
 import { Context } from '../.././context/Provider';
 import Icon  from 'react-native-vector-icons/AntDesign';
+import ThreeItems from '../components/ThreeItems';
 
-//TODO: THE NEXT: YOU NEED UNDERSTAND HOW USE WITH ASSINCRONOUS FUNCTION
-//TODO: try understand use reducer, and all hooks
 
 
 export default function ({navigation}){
@@ -21,18 +19,6 @@ export default function ({navigation}){
   const {showOnlyCustomsOfUser, setShowOnlyCustomsOfUser} = useContext(Context)
     
   
-
-  // useEffect(() => {
-  //   if(showUserAndInitial == true){
-  //     setShowInitial(false)
-  //     setShowOnlyCustomsOfUser(false) 
-      
-      
-  //   }if(showUserAndInitial== false && showOnlyCustomsOfUser== false){
-  //     setShowInitial(true)
-      
-  //   }
-  // }),[setShowUserAndInitial, setShowOnlyCustomsOfUser]
 
   const ActivatedShowUserAndInitial =()=>{
     setShowUserAndInitial(!showUserAndInitial)
@@ -60,84 +46,47 @@ export default function ({navigation}){
     
     return( 
   <View style={styles.container} >
-      <View style={{height: ('5%'), flexDirection:'row' ,marginVertical:18, }} > 
-      <TouchableOpacity onPress={goToSetUsers} >
-          <Icon  name='addusergroup' size={30} style={{color:'blue' 
-        ,marginVertical:5
-        }} ></Icon>
+
+    <ThreeItems 
+        users={goToSetUsers}      text={players[nextPlayer]}     settings={goToSettings} 
+    ></ThreeItems>
+
+
+    <View style={{justifyContent:'space-evenly'}}  >
+      <TouchableOpacity onPress={()=> navigation.push('PlayTruth')} >
+        <Text style={styles.choiceOfUser} >VERDADE </Text>    
+      </TouchableOpacity>
       
-        </TouchableOpacity>
+      <Text style={styles.underscore} >________________</Text>
+      
+      <TouchableOpacity onPress={randomChoice} >
+        <Text style={styles.randomChoice}>ESCOLHA ALEATÓRIA</Text>
+      </TouchableOpacity>
+      
+      <Text style={styles.underscore} >________________</Text>   
+      
+      <TouchableOpacity onPress={()=> navigation.push('PlayChallenges')} >
+        <Text style={styles.choiceOfUser}>DESAFIO</Text>
+      </TouchableOpacity>
         
-        <View style={{justifyContent:'center', left:110 }} >
-        <Text style={styles.lettersOne}  >{players[nextPlayer]}</Text>
-        </View>
-        {/* <View style={{borderWidth:1 , borderRadius:25, backgroundColor:'#ff09de',opacity:8 ,
-            width: 50,height: 50, left: 200  ,alignItems:'center',
-            justifyContent:'center',
-            marginLeft:25
-          }} > */}
-            <TouchableOpacity onPress={goToSettings} >
-          <Icon  name='menufold' size={30} style={{color:'blue',left: 180, marginLeft:35
-            ,marginVertical:5          
-        }} ></Icon>
-        </TouchableOpacity>
-      
-          {/* </View> */}
     </View>
-       <View style={{justifyContent:'space-evenly'}}  >
- 
-       <TouchableOpacity onPress={()=> navigation.push('PlayTruth')} >
-         <Text style={styles.lettersThree} 
-         >VERDADE 
-         </Text>    
-       </TouchableOpacity>
-       <Text style={{  alignSelf:'center'}} >_________</Text>
-       <TouchableOpacity onPress={randomChoice} >
-          <Text style={{fontSize:28,textAlign:'center',color:('#De2674'), fontWeight:('300')}}
-              >ESCOLHA ALEATÓRIA</Text>
-       </TouchableOpacity>
-          <Text style={{  alignSelf:'center'}} >_________</Text>   
-{/* 
-       <TouchableOpacity onPress={()=> navigation.navigate('PlayChallenges', 
-          // {challengesOfUser: challengesOfUser,
-             {initialChallenges: initialChallenges })} >
-          
-          <Text style={styles.lettersThree}>DARE</Text>
-       </TouchableOpacity>
-         */}
-         
-       <TouchableOpacity onPress={()=> navigation.push('PlayChallenges')} >
-          
-          <Text style={styles.lettersThree}>DESAFIO</Text>
-       </TouchableOpacity>
-        
-     </View>
-     
+    
 
-
-     <View style={{flexDirection:'row',marginBottom:20, marginLeft:30, padding:10}} >
-          <Text style={{fontSize:22, color:'white',alignSelf:'center', // esse bagulho tem que fi
-        fontWeight:'300'           //car no meio 
-        }}>Incluir "Personalizadas"?</Text>
-      <TouchableOpacity 
-      onPress={ActivatedShowUserAndInitial}
-      style={{borderWidth:2,  marginLeft:9,borderRadius:5
-      ,marginTop:5, backgroundColor:('#ff09de'),
-      maxHeight:23,maxWidth:23
-    }}  >
-        <View  >
+    <View style={styles.wrapperOfToggle} >
+      <Text style={styles.includeCustoms}>Incluir "Personalizadas"?</Text>
+      <TouchableOpacity onPress={ActivatedShowUserAndInitial} style={styles.toggle}  >
+        <View>
           {showUserAndInitial==false?
-           <Text>     </Text> 
-           :
-           <Icon size={20} name='check' ></Icon>
+            <Text>     </Text> 
+            :
+            <Icon style={{backgroundColor:'#ff09de', }}  size={18} name='check' ></Icon>
         }
         </View>
       </TouchableOpacity>
       
-     </View>
+    </View>
 
-  </View>
-     
+  </View> 
 )}
 
 const styles = StyleSheet.create({
@@ -152,15 +101,46 @@ const styles = StyleSheet.create({
       fontSize:30,
       color:('#fa29de'),
       alignSelf:'center',
-      textAlign:'center',
-      justifyContent:'center'
+      marginVertical:-40
   },
-  lettersThree:{
-    fontSize:40,
+  choiceOfUser:{
+    fontSize:35,
     color:('#ff09de'),
     //color:('#f9de'), não vou mentir, mas essa cor ficou linda
     alignSelf:'center',
-    
-
-}
+    marginTop:20,marginBottom:20,
+},
+  underscore:{
+    alignSelf:'center',
+    fontWeight:'100',
+    marginBottom:3,
+    marginTop:3
+  },
+  randomChoice:{
+    fontSize:28,
+    textAlign:'center',
+    color:('#De2674'),
+    fontWeight:('500')
+    },
+  wrapperOfToggle:{
+    flexDirection:'row',
+    marginBottom:20, 
+    marginLeft:30,
+    padding:10
+  },
+  includeCustoms:{
+    fontSize:22,
+    color:'white',
+    alignSelf:'center',
+    fontWeight:'300'       
+  },
+  toggle:{
+    borderWidth:3,  
+    marginLeft:13,
+    borderRadius:1,
+    marginTop:7,
+    borderColor:'#ff09de',
+    maxHeight:22,
+    maxWidth:23
+  }
 });

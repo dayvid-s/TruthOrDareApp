@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function Teste() {
+export default function PlusIcon() {
   return (
     <View>
-      <Text>Teste</Text>
+      <Text>PlusIcon</Text>
     </View>
   )
 }

@@ -4,8 +4,10 @@ import Icon  from 'react-native-vector-icons/AntDesign';
 import Ionicon  from 'react-native-vector-icons/Ionicons';
 import { Context } from '../../context/Provider';
 import ShuffleArray from '../components/ShuffleArray';
-export default function PlayChallenges({navigation})  {
 
+
+
+export default function PlayChallenges({navigation})  {
   const {initialChallenges, userChallenges} = useContext(Context)
   const [challengeNumber, setChallengeNumber] = useState(0) 
   const {players, addPlayers} = useContext(Context)
@@ -117,9 +119,10 @@ export default function PlayChallenges({navigation})  {
                   
               <View style={{right:-30}}>
                 <TouchableOpacity onPress={()=> navigation.push('AddDare')}>
-                  <View style={styles.bottomIcons} >
+                <View style={styles.bottomIcons} >
                     <Ionicon style={{left:13}} name='add-outline' size={43} color='white' >  </Ionicon>
                   </View>
+                  {/* <PlusIcon></PlusIcon> */}
                 </TouchableOpacity>                
               </View>
             

@@ -1,4 +1,4 @@
-// ignore this page. deprecated, lol
+// ignore this page. 'deprecated', lol
 import React, {useState, useContext,useEffect} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';

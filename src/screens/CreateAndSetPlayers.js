@@ -42,10 +42,10 @@ export default function Appe({navigation}) {
   return (
     <View style={styles.container}>
       <View style={{flexDirection:'row', padding:20, marginTop:20}}>
-        <Text style={styles.sectionTitle}>Jogadores:</Text>
+        <Text style={styles.sectionTitle}>Jogadores</Text>
        <TouchableOpacity onPress={advance}>
         <View style={styles.advance}>
-          <Icon name='chevron-right' size={38} color='#ff09de'/>
+          <Icon name='chevron-right' size={42} color='#ff09de'/>
            {/* ionicons é brabo, 100% completo, ao inves do ant design
             feather também é brabo, mas nao chega no nivel de ionicos
             <Text style={{  alignSelf:'center',color:('#De2674')}} >______________</Text>
@@ -55,7 +55,6 @@ export default function Appe({navigation}) {
        </TouchableOpacity>
       </View>
             
-      {/* Added this scroll view to enable scrolling when list gets longer than the page */}
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1
@@ -63,10 +62,8 @@ export default function Appe({navigation}) {
         keyboardShouldPersistTaps='handled'
       >
 
-      {/* Today's inputBoxValues */}
       <View style={styles.inputBoxValuesWrapper}>
         <View style={styles.items}>
-          {/* This is where the inputBoxValues will go! */}
           {
             players.map((item, index) => {
               return (
@@ -88,8 +85,6 @@ export default function Appe({navigation}) {
         
       </ScrollView>
 
-      {/* Write a inputBoxValue */}
-      {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
       <KeyboardAvoidingView 
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeinputBoxValueWrapper}
@@ -97,7 +92,7 @@ export default function Appe({navigation}) {
         <TextInput style={styles.input} placeholder={'Quem irá brincar?'} value={inputBoxValue} onChangeText={text => setInputBoxValue(text)} />
         <TouchableOpacity onPress={() => handleSetPlayers()}>
           <View style={styles.addWrapper}>
-            <Text style={styles.addText}>+</Text>
+            <Icon name='plus' size={20} color='white' ></Icon>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -113,12 +108,13 @@ const styles = StyleSheet.create({
 
   },
   advance:{
-    left: 130 ,
+    left: '280%' ,
     width: 60,
     height: 60,
     borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
+
   },
   inputBoxValuesWrapper: {
     paddingTop: 80,
@@ -126,9 +122,10 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     left:80,
-    fontSize: 33,
+    fontSize: 30,
     fontWeight: '400',
-    color: '#ff09de'
+    color: '#ff09de',
+    marginVertical: 10,
   },
   items: {
     marginTop: 30,

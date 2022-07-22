@@ -1,4 +1,6 @@
 import React, {useState, useContext} from 'react';
+import Icon  from 'react-native-vector-icons/Octicons';
+
 import { KeyboardAvoidingView,
   StyleSheet,
     Text,
@@ -9,7 +11,6 @@ import { KeyboardAvoidingView,
     ScrollView 
   } from 'react-native';
   import {Context} from '../../context/Provider'
-  import  Icon  from 'react-native-vector-icons/Ionicons';
 
 
 export default function App({navigation}) {
@@ -46,7 +47,7 @@ export default function App({navigation}) {
 
       <TouchableOpacity style={styles.iconGoBack} onPress={()=>{ navigation.goBack()}}  >
       <View style= {{right:-15, marginVertical:20}}>
-        <Icon name='arrow-back-outline' size={30} > </Icon>
+        <Icon name='chevron-left' size={30} > </Icon>
       </View>
       </TouchableOpacity>
       <ScrollView
@@ -88,7 +89,7 @@ export default function App({navigation}) {
         <TextInput style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setInputBoxValue(text)} />
         <TouchableOpacity onPress={() => handleAddChallenges()}>
           <View style={styles.addWrapper}>
-            <Text style={styles.addText}>+</Text>
+            <Icon name='plus' size={20} color='white' ></Icon>      
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
