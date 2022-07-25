@@ -7,13 +7,13 @@ export default function ThreeItems(props) {
       <View style={styles.container}>
         <View style={styles.playersIcon}>
           <TouchableOpacity onPress={props.users}  >
-            <Icon name='addusergroup' size={30} color='blue' ></Icon>
+            <Icon name='addusergroup' size={30} color='#3cf' ></Icon>
           </TouchableOpacity>
-          <Text    style={styles.itemText}>{props.text}</Text>
+          <Text    style={styles.nameOfUser}>{props.text}</Text>
         </View>
         <View   >
           <TouchableOpacity  >
-            <Icon onPress={props.settings} name='menufold' size={30} color='blue' ></Icon>
+            <Icon onPress={props.settings} name='menufold' size={30} color='#3cf' ></Icon>
           </TouchableOpacity>
         </View>
       </View>
@@ -33,11 +33,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexWrap: 'wrap'
 },
-  itemText: {
+  nameOfUser: {
     maxWidth: '80%',
     fontSize:30,
     width: 190,
     textAlign:'center',
     left: 60,
-    color:('#fa29de'),
+    color:('#3cf'),
   }});

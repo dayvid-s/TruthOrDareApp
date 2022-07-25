@@ -1,18 +1,18 @@
   import React, {useState, useContext} from 'react';
 import { KeyboardAvoidingView,
-   StyleSheet,
-   Text,
-   View,
-   TextInput,
-   TouchableOpacity,
-   Keyboard,
-   ScrollView,
-   Alert 
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Keyboard,
+  ScrollView,
+  Alert 
   } from 'react-native';
 import { Context } from '../../context/Provider';
 import Icon  from 'react-native-vector-icons/Octicons';
 
-export default function Appe({navigation}) {
+export default function CreateAndSetPlayers ({navigation}) {
   const [inputBoxValue, setInputBoxValue] = useState('');
   const {players, setPlayers} = useContext(Context);
 
@@ -43,16 +43,16 @@ export default function Appe({navigation}) {
     <View style={styles.container}>
       <View style={{flexDirection:'row', padding:20, marginTop:20}}>
         <Text style={styles.sectionTitle}>Jogadores</Text>
-       <TouchableOpacity onPress={advance}>
-        <View style={styles.advance}>
-          <Icon name='chevron-right' size={42} color='#ff09de'/>
-           {/* ionicons é brabo, 100% completo, ao inves do ant design
-            feather também é brabo, mas nao chega no nivel de ionicos
-            <Text style={{  alignSelf:'center',color:('#De2674')}} >______________</Text>
-            e fontisto também é brabo
-           */}
-        </View>
-       </TouchableOpacity>
+        <TouchableOpacity onPress={advance}>
+          <View style={styles.advance}>
+            <Icon name='chevron-right' size={42} color='#6495ed'/>
+            {/* ionicons é brabo, 100% completo, ao inves do ant design
+              feather também é brabo, mas nao chega no nivel de ionicos
+              <Text style={{  alignSelf:'center',color:('#De2674')}} >______________</Text>
+              e fontisto também é brabo
+            */}
+          </View>
+        </TouchableOpacity>
       </View>
             
       <ScrollView
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     left:80,
     fontSize: 30,
     fontWeight: '400',
-    color: '#ff09de',
+    color: '#6495ed',
     marginVertical: 10,
   },
   items: {
@@ -143,14 +143,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: '#FFF',
     borderRadius: 60,
-    borderColor: '#F80EC8',
-    borderWidth: 2,
+    borderColor: 'blue',
+    borderWidth: 3,
     width: 250,
   },
   addWrapper: {
     width: 60,
     height: 60,
-    backgroundColor: '#F80EC8',
+    backgroundColor: 'blue',
     borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 20,
-    borderColor: '#F80EC8',
+    borderColor: 'blue',
     borderWidth:2
     
   
@@ -183,6 +183,6 @@ const styles = StyleSheet.create({
     },boxRemove:{
   fontSize:25,
   textAlign:'center',
-  color:'#F80EC8',
+  color:'#6495ed',
   }
 });

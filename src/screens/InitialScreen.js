@@ -79,7 +79,7 @@ export default function ({navigation}){
           {showUserAndInitial==false?
             <Text>     </Text> 
             :
-            <Icon style={{backgroundColor:'#ff09de', }}  size={18} name='check' ></Icon>
+            <Icon style={{backgroundColor:'#0000ff', }}  size={18} name='check' ></Icon>
         }
         </View>
       </TouchableOpacity>
@@ -95,17 +95,10 @@ const styles = StyleSheet.create({
     height:'100%',
     padding:20,
     justifyContent:'space-between'
-    
-  },
-  lettersOne:{
-      fontSize:30,
-      color:('#fa29de'),
-      alignSelf:'center',
-      marginVertical:-40
   },
   choiceOfUser:{
     fontSize:35,
-    color:('#ff09de'),
+    color:('#09de'),
     //color:('#f9de'), não vou mentir, mas essa cor ficou linda
     alignSelf:'center',
     marginTop:20,marginBottom:20,
@@ -119,7 +112,7 @@ const styles = StyleSheet.create({
   randomChoice:{
     fontSize:28,
     textAlign:'center',
-    color:('#De2674'),
+    color:('#322ede'),
     fontWeight:('500')
     },
   wrapperOfToggle:{
@@ -139,7 +132,7 @@ const styles = StyleSheet.create({
     marginLeft:13,
     borderRadius:1,
     marginTop:7,
-    borderColor:'#ff09de',
+    borderColor:'#0000ff',
     maxHeight:22,
     maxWidth:23
   }

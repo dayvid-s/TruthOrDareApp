@@ -65,7 +65,7 @@ export default function PlayChallenges({navigation})  {
               <Text style={styles.nameOfPlayer}>{players[nextPlayer]}</Text>
               
               <TouchableOpacity style={styles.iconGoBack}  onPress={() => {navigation.goBack()}}  >
-                <Icon name='left' size={28} color='#ff09de'/>
+                <Icon name='left' size={28} color='#00bfff' />
               </TouchableOpacity>
               
               <Text style={styles.welcomeMessage} >Hora de pagar um desafio!</Text>
@@ -142,13 +142,13 @@ export default function PlayChallenges({navigation})  {
         },
         nameOfPlayer:{  
           fontSize:30,
-          color:('#ff09de'),
+          color:'#3cf',
           alignSelf:'center',
           justifyContent:'center',
         },
         welcomeMessage:{
           fontSize:18,
-          color:('grey'),
+          color:('#3cf'),
           fontStyle:('normal'),
           alignSelf:'center',
           fontWeight:"500",
@@ -159,7 +159,7 @@ export default function PlayChallenges({navigation})  {
         },
         underscore:{
           alignSelf:'center',
-          color:('#De2674')
+          color:('#6495ed')
         },
         challenges:{
           fontSize:28,
@@ -173,7 +173,7 @@ export default function PlayChallenges({navigation})  {
         bottomIcons:{
           borderWidth:1,
           borderRadius:100,
-          backgroundColor:'#ff09de',
+          backgroundColor:'#0000ff',
           width: 70,
           height: 70,
           justifyContent:'center',

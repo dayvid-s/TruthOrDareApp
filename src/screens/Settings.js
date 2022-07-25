@@ -48,10 +48,10 @@ export default function PlayChallenges({navigation,route})  {
         <View style={styles.container} >
             <View style={{height: ('5%'), flexDirection:'row', marginVertical:20}} > 
               <TouchableOpacity onPress={() => {navigation.goBack()}}  >
-                <Icon name='left' size={30} color='#ff66eb'/>
+                <Icon name='left' size={30} color='#00bfff'/>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => {navigation.goBack()}}  >
-                <Icon style={{left:270}} name='instagram' size={30} color='#ff66eb'/>
+                <Icon style={{left:270}} name='instagram' size={30} color='#00bfff'/>
               </TouchableOpacity>
               <Text style={styles.lettersOne}>Configurações</Text>
 
@@ -64,7 +64,7 @@ export default function PlayChallenges({navigation,route})  {
       <TouchableOpacity 
       onPress={ActivatedShowOnlyCustomsOfUser}
       style={{borderWidth:2,  borderRadius:5
-      ,marginTop:5, backgroundColor:('#ff09de'),
+      ,marginTop:5, backgroundColor:('blue'),
       maxHeight:40, paddingRight: 5, justifyContent:'center', borderRadius:15
     }}  >
         <View  >
@@ -100,7 +100,7 @@ export default function PlayChallenges({navigation,route})  {
         },
         lettersOne:{  
             fontSize:25,
-            color:('#ff66eb'),
+            color:('#00bfff'),
             left: 30
         },
         lettersTwo:{

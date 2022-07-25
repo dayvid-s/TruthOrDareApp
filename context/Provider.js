@@ -6,7 +6,7 @@ export const Context = createContext()
 export default function Provider({children}){ 
     const [initialChallenges, setInitialChallenges] = useState(dataOfInitialChallenges)
     const [userChallenges, setUserChallenges] = useState([]) 
-    const [players, setPlayers] = useState(['Dayvid','Andressa','carlos','jomar'])
+    const [players, setPlayers] = useState([])
     const [nextPlayer, setNextPlayer] = useState(0)
     const [showOnlyCustomsOfUser, setShowOnlyCustomsOfUser] = useState(false)
     const [showTheInitial, setShowInitial]= useState(true)
