@@ -9,5 +9,5 @@ export default function shuffle(array){
     }}
 
 // função shuffle ta recebendo o param array, qualquer variavel que 
-//seja um array, e eu colocarcomo paramentro da 
+//seja um array, e eu colocar como paramentro da 
 //função shuffle, ele vai embaralhar
