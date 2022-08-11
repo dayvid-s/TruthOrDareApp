@@ -45,7 +45,7 @@ export default function AddTruth({navigation}) {
 
       <TouchableOpacity style={styles.iconGoBack} onPress={()=>{ navigation.goBack()}}  >
       <View style= {{right:-15, marginVertical:20}}>
-        <Icon name='arrow-back-outline' size={30} > </Icon>
+        <Icon name='arrow-back-outline' size={30} color='#3cf' > </Icon>
       </View>
       </TouchableOpacity>
       <ScrollView
@@ -130,14 +130,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: '#FFF',
     borderRadius: 60,
-    borderColor: '#F315EF',
+    borderColor: 'blue',
     borderWidth: 1,
     width: 250,
   },
   addWrapper: {
     width: 60,
     height: 60,
-    backgroundColor: '#F80EC8',
+    backgroundColor: 'blue',
     borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   square: { 
     width: 24,
     height: 24,
-    backgroundColor: '#ff09de',
+    backgroundColor: '#3cf',
     // opacity: 0.4,   // era um azul bem forte, mas alterou com a opacidade, teste dps.
     borderRadius: 25,    // isso fez o quadrado ficar mais um pouco redondo rsrs teste ao extremo dps
     marginRight: 15, // aqui afastou mais o item de texto para a direita 
@@ -173,5 +173,5 @@ const styles = StyleSheet.create({
   boxRemove:{
     fontSize:25,
     textAlign:'center',
-    color:'#F80EC8',}
+    color:'#3cf',}
 });

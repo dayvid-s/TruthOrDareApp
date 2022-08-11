@@ -31,9 +31,10 @@ export default function CreateAndSetPlayers ({navigation}) {
         Keyboard.dismiss();
         setPlayers([...players, inputBoxValue])
         setInputBoxValue(null);}
+        
   }
 
-  const complete = (index) => {
+  const removePlayer = (index) => {
     let itemsCopy = [...players];
     itemsCopy.splice(index, 1);
     setPlayers(itemsCopy)
@@ -41,11 +42,15 @@ export default function CreateAndSetPlayers ({navigation}) {
 
   return (
     <View style={styles.container}>
-      <View style={{flexDirection:'row', padding:20, marginTop:20}}>
+      <View style={{flexDirection:'row',  marginTop:20}}>
         <Text style={styles.sectionTitle}>Jogadores</Text>
         <TouchableOpacity onPress={advance}>
           <View style={styles.advance}>
+          
+          {players.length>1 &&
             <Icon name='chevron-right' size={42} color='#6495ed'/>
+          }
+          
             {/* ionicons é brabo, 100% completo, ao inves do ant design
               feather também é brabo, mas nao chega no nivel de ionicos
               <Text style={{  alignSelf:'center',color:('#De2674')}} >______________</Text>
@@ -72,7 +77,7 @@ export default function CreateAndSetPlayers ({navigation}) {
                     <Text  key={Math.random()*23}  style={styles.itemText}>{item}</Text>
                   </View>
                   <View  key={Math.random()*23} >
-                    <TouchableOpacity style={{padding: 10}}  key={index}  onPress={() => complete(index)}>
+                    <TouchableOpacity style={{padding: 10}}  key={index}  onPress={() => removePlayer(index)}>
                       <Text style={styles.boxRemove} key={Math.random()*23}>X</Text>
                     </TouchableOpacity>
                   </View>
@@ -108,24 +113,20 @@ const styles = StyleSheet.create({
 
   },
   advance:{
-    left: '280%' ,
-    width: 60,
-    height: 60,
-    borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
-
+    marginRight:15
   },
   inputBoxValuesWrapper: {
     paddingTop: 80,
     paddingHorizontal: 20,
   },
   sectionTitle: {
-    left:80,
+    textAlign:'center',
     fontSize: 30,
     fontWeight: '400',
     color: '#6495ed',
-    marginVertical: 10,
+    flex: 1
   },
   items: {
     marginTop: 30,

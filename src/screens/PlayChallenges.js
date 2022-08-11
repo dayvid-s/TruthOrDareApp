@@ -77,14 +77,14 @@ export default function PlayChallenges({navigation})  {
               {console.log('userandinitial',showUserAndInitial)}
               {console.log('onlycustom',showOnlyCustomsOfUser)}
               
-              {showUserAndInitial ==true  && <Text style={styles.challenges} 
-              >{allChallenges[challengeNumber]}</Text>}     
+              {showUserAndInitial ==true  &&
+              <Text style={styles.challenges}>{allChallenges[challengeNumber]}</Text>}     
               
-              {showTheInitial == true && <Text style={styles.challenges} 
-              >{initialChallenges[challengeNumber]}</Text>}     
+              {showTheInitial == true && 
+              <Text style={styles.challenges} >{initialChallenges[challengeNumber]}</Text>}     
               
-              {showOnlyCustomsOfUser ==true && <Text style={styles.challenges} 
-              >{userChallenges[challengeNumber]}</Text>}     
+              {showOnlyCustomsOfUser ==true && 
+              <Text style={styles.challenges} >{userChallenges[challengeNumber]}</Text>}     
 
                       
                       {/* Possiveis 3 renderizações. sendo elas: */}
