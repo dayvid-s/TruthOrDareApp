@@ -15,9 +15,9 @@ export default function PlayChallenges({navigation})  {
   const {showOnlyCustomsOfUser, setShowOnlyCustomsOfUser } = useContext(Context)  
   const {showUserAndInitial,setShowUserAndInitial } = useContext(Context)
   const {showTheInitial, setShowInitial} = useContext(Context)
+  ShuffleArray(initialChallenges)
   var allChallenges = [...initialChallenges, ...userChallenges]
   
-  ShuffleArray(allChallenges)
 
   const reloadChallenges= ()=> {  
     if(showUserAndInitial== true){
@@ -164,6 +164,7 @@ export default function PlayChallenges({navigation})  {
         challenges:{
           fontSize:28,
           textAlign:'center',
+          color: 'grey'
         },
         wrapperOfIcons:{
           flexDirection:'row',

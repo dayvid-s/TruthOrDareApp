@@ -133,6 +133,9 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
     borderWidth: 1,
     width: 250,
+    // backgroundColor:'#444444'
+    backgroundColor:'#FFF'
+
   },
   addWrapper: {
     width: 60,
@@ -152,12 +155,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', //esse justify content tá basicamente
       // empurrando o botão circular para o extremidade oposta
     marginBottom: 20,
+    backgroundColor:'#444444'
   },
   itemLeft: { // as tarefas estarão aqui
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap'  // se a tarefa ficar muito grande, ele vai passar pra 
-              //proxima linha, flexwrap
+    //proxima linha, flexwrap
   },
   itemText: {
     maxWidth: '80%', // se caso não colocar isso, ele empurra o x para fora da tela 
@@ -174,4 +178,4 @@ const styles = StyleSheet.create({
     fontSize:25,
     textAlign:'center',
     color:'#3cf',}
-});
+  });

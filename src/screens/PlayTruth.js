@@ -162,6 +162,7 @@ export default function PlayTruth({navigation})  {
         truths:{
           fontSize:28,
           textAlign:'center',
+          color: 'grey'
         },
         wrapperOfIcons:{
           flexDirection:'row',

@@ -1,4 +1,4 @@
-  import React, {useState, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import { KeyboardAvoidingView,
   StyleSheet,
   Text,
@@ -11,11 +11,22 @@ import { KeyboardAvoidingView,
   } from 'react-native';
 import { Context } from '../../context/Provider';
 import Icon  from 'react-native-vector-icons/Octicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CreateAndSetPlayers ({navigation}) {
   const [inputBoxValue, setInputBoxValue] = useState('');
-  const {players, setPlayers} = useContext(Context);
+  const [players, setPlayers] = useState([]);
+{console.log(players)}
 
+
+React.useEffect(() => {
+  getPlayersFromUserDevice();
+  console.log('foi chamada')
+}, []);
+
+React.useEffect(() => {
+  savePlayersInDevice(players);
+}, [players])
 
   const advance = () =>{
     if(players.length >=2){
@@ -23,22 +34,44 @@ export default function CreateAndSetPlayers ({navigation}) {
       else{ 
         Alert.alert('Erro','Você precisa de no minímo 2 jogadores.')}}
 
-
-  const handleSetPlayers = () => {
-    if(inputBoxValue == '' ){
-      Alert.alert('Erro','Digite alguma coisa')}
-      else{  
-        Keyboard.dismiss();
-        setPlayers([...players, inputBoxValue])
-        setInputBoxValue(null);}
         
-  }
+        
+        const handleSetPlayers = () => {
+          if(inputBoxValue == '' ){
+            Alert.alert('Erro','Digite alguma coisa')}
+            else{  
+              Keyboard.dismiss();
+              setPlayers([...players, inputBoxValue])
+              setInputBoxValue(null);}
+              
+            }
+            const removePlayer = (index) => {
+              let itemsCopy = [...players];
+              itemsCopy.splice(index, 1);
+              setPlayers(itemsCopy)
+            }
+            
+            const savePlayersInDevice = async players => {
+              try {
+                const stringifyPlayers = JSON.stringify(players);
+                await AsyncStorage.setItem('players', stringifyPlayers);
+              } catch (error) {
+                console.log(error);
+              };
+              }
 
-  const removePlayer = (index) => {
-    let itemsCopy = [...players];
-    itemsCopy.splice(index, 1);
-    setPlayers(itemsCopy)
-  }
+
+              
+  const getPlayersFromUserDevice = async () => {
+    try {
+      const players = await AsyncStorage.getItem('players');
+      if (players != null) {
+        setPlayers(JSON.parse(players));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -57,6 +90,7 @@ export default function CreateAndSetPlayers ({navigation}) {
               e fontisto também é brabo
             */}
           </View>
+
         </TouchableOpacity>
       </View>
             
@@ -66,22 +100,23 @@ export default function CreateAndSetPlayers ({navigation}) {
         }}
         keyboardShouldPersistTaps='handled'
       >
-
       <View style={styles.inputBoxValuesWrapper}>
         <View style={styles.items}>
           {
             players.map((item, index) => {
               return (
-                <View key={Math.random()*23} style={styles.item}>
-                  <View  key={Math.random()*23} style={styles.itemLeft}>
-                    <Text  key={Math.random()*23}  style={styles.itemText}>{item}</Text>
-                  </View>
-                  <View  key={Math.random()*23} >
-                    <TouchableOpacity style={{padding: 10}}  key={index}  onPress={() => removePlayer(index)}>
-                      <Text style={styles.boxRemove} key={Math.random()*23}>X</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
+                // <View key={Math.random()*23} style={styles.item}>
+                <TextInput key={Math.random()*23} style={styles.input} placeholder={item? item: 'Nome'} 
+                value={inputBoxValue} onChangeText={text =>  setInputBoxValue(text)} />
+                //   <View  key={Math.random()*23} style={styles.itemLeft}>
+                //     <Text  key={Math.random()*23}  style={styles.itemText}>{item}</Text>
+                //   </View>
+                //   <View  key={Math.random()*23} >
+                //     <TouchableOpacity style={{padding: 10}}  key={index}  onPress={() => removePlayer(index)}>
+                //       <Text style={styles.boxRemove} key={Math.random()*23}>X</Text>
+                //     </TouchableOpacity>
+                //   </View>
+                // </View>
               )
             })
           }
@@ -94,7 +129,6 @@ export default function CreateAndSetPlayers ({navigation}) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeinputBoxValueWrapper}
       >
-        <TextInput style={styles.input} placeholder={'Quem irá brincar?'} value={inputBoxValue} onChangeText={text => setInputBoxValue(text)} />
         <TouchableOpacity onPress={() => handleSetPlayers()}>
           <View style={styles.addWrapper}>
             <Icon name='plus' size={20} color='white' ></Icon>
@@ -138,6 +172,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    
   },
   input: {
     paddingVertical: 15,
@@ -147,6 +182,9 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
     borderWidth: 3,
     width: 250,
+    fontSize:20,
+    textAlign:'center',
+    backgroundColor:'#444444'
   },
   addWrapper: {
     width: 60,
@@ -187,3 +225,6 @@ const styles = StyleSheet.create({
   color:'#6495ed',
   }
 });
+
+
+

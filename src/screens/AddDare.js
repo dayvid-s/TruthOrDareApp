@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#AFADAC'
- 
+    
   },
   items: {
     marginTop: 30,
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
     borderWidth: 3,
     width: 250,
+    backgroundColor:"#444444"
   },
   addWrapper: {
     width: 60,
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   item: { //envolve as tarefas, todas... é aquele espaço branco atrás, um padding
-    backgroundColor: '#FFF',
+    backgroundColor:'#444444',
     padding: 15,
     borderRadius: 10,
     flexDirection: 'row',
