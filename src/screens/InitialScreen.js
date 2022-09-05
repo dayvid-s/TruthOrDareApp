@@ -12,11 +12,11 @@ import ThreeItems from '../components/ThreeItems';
 
 
 export default function ({navigation}){
-  const {players, addPlayers} = useContext(Context)
-  const {nextPlayer, setNextPlayer} = useContext(Context)
+  const {players} = useContext(Context)
+  const {nextPlayer} = useContext(Context)
   const {showUserAndInitial,setShowUserAndInitial } = useContext(Context)
-  const {showTheInitial, setShowInitial} = useContext(Context)
-  const {showOnlyCustomsOfUser, setShowOnlyCustomsOfUser} = useContext(Context)
+  const {setShowInitial} = useContext(Context)
+  const {setShowOnlyCustomsOfUser} = useContext(Context)
     
   
 

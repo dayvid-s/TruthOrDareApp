@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import Icon  from 'react-native-vector-icons/Octicons';
 
 import { KeyboardAvoidingView,
@@ -10,38 +10,67 @@ import { KeyboardAvoidingView,
     Keyboard,
     ScrollView 
   } from 'react-native';
-  import {Context} from '../../context/Provider'
+import {Context} from '../../context/Provider'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function App({navigation}) {
-  const [inputBoxValue, setInputBoxValue] = useState();
+  const [inputBoxValue, setinputBoxValue] = useState();
   const {userChallenges, setUserChallenges} = useContext(Context)
-  const {showOnlyCustomsOfUser, setShowOnlyCustomsOfUser} = useContext(Context)
+  const {setShowOnlyCustomsOfUser} = useContext(Context)
 
+  useEffect(() => {
+     getChallengesFromUserDevice();
+  },[])
+
+  useEffect(() => {
+    saveChallengesInUserDevice(userChallenges);
+  }),[userChallenges]
+  
   const handleAddChallenges = () => {
     if (inputBoxValue == null ){
       alert("Escreva algo")
     }else{
+      Keyboard.dismiss();
+      setUserChallenges([...userChallenges, inputBoxValue])
+      setinputBoxValue(null);
+    }
+  }
   
-    Keyboard.dismiss();
-    setUserChallenges([...userChallenges, inputBoxValue])
-    setInputBoxValue(null);
-    }
-  }
-  const handleRemoveChallenges = (index) => {
-    if(userChallenges.length > 1){
-      let itemsCopy = [...userChallenges];
-      itemsCopy.splice(index, 1);
-      setUserChallenges(itemsCopy)
-    }else{
-      let itemsCopy = [...userChallenges];
-      itemsCopy.splice(index, 1);
-      setUserChallenges(itemsCopy)
-      setShowOnlyCustomsOfUser(false)
-    }
-  }
+  const saveChallengesInUserDevice = async userChallenges => {
+    try {
+      const stringifyChallenges = JSON.stringify(userChallenges)
+      await AsyncStorage.setItem('challenges',stringifyChallenges )
+    } catch (error) {
+      console.log(error)
+    }  }
 
-  return (
+  
+  const getChallengesFromUserDevice = async () => {
+    try {
+      const challenges = await AsyncStorage.getItem('challenges');
+      if (challenges != null) {
+        setUserChallenges(JSON.parse(challenges));}
+    } catch (error) {
+      console.log(error);}
+        };
+    
+
+    
+    const handleRemoveChallenges = (index) => {
+      if(userChallenges.length > 1){
+        let itemsCopy = [...userChallenges];
+        itemsCopy.splice(index, 1);
+        setUserChallenges(itemsCopy)
+      }else{
+        let itemsCopy = [...userChallenges];
+        itemsCopy.splice(index, 1);
+        setUserChallenges(itemsCopy)
+        setShowOnlyCustomsOfUser(false)
+      }
+    }
+    
+    return (
     <View style={styles.container}>
       {/* Added this scroll view to enable scrolling when list gets longer than the page */}
 
@@ -86,7 +115,7 @@ export default function App({navigation}) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeChallengesWrapper}
       >
-        <TextInput style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setInputBoxValue(text)} />
+        <TextInput style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setinputBoxValue(text)} />
         <TouchableOpacity onPress={() => handleAddChallenges()}>
           <View style={styles.addWrapper}>
             <Icon name='plus' size={20} color='white' ></Icon>      

@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { KeyboardAvoidingView,
   StyleSheet,
     Text,
@@ -8,15 +8,26 @@ import { KeyboardAvoidingView,
     Keyboard,
     ScrollView 
   } from 'react-native';
-  import {Context} from '../../context/Provider'
-  import  Icon  from 'react-native-vector-icons/Ionicons';
+import {Context} from '../../context/Provider'
+import  Icon  from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+  
+  
+  export default function AddTruth({navigation}) {
+    const [inputBoxValue, setinputBoxValue] = useState();
+    const {userTruths, setUserTruths} = useContext(Context)
+    const {showOnlyCustomsOfUser, setShowOnlyCustomsOfUser} = useContext(Context)
+    
+  useEffect(() => {
+    getTruthsFromUserDevice();
+  },[])
+  
+  useEffect(() => {
+    saveTruthsInUserDevice(userTruths);
+  }),[userTruths]
 
-export default function AddTruth({navigation}) {
-  const [inputBoxValue, setInputBoxValue] = useState();
-  const {userTruths, setUserTruths} = useContext(Context)
-  const {showOnlyCustomsOfUser, setShowOnlyCustomsOfUser} = useContext(Context)
-
+  
   const handleAddTruths = () => {
     if (inputBoxValue == null ){
       alert("Escreva algo")
@@ -24,9 +35,32 @@ export default function AddTruth({navigation}) {
   
     Keyboard.dismiss();
     setUserTruths([...userTruths, inputBoxValue])
-    setInputBoxValue(null);
+    setinputBoxValue(null);
     }
   }
+
+
+  const saveTruthsInUserDevice = async userTruths => {
+    try {
+      const stringifyTruths = JSON.stringify(userTruths)
+      await AsyncStorage.setItem('truths',stringifyTruths )
+    } catch (error) {
+      console.log(error)
+    }  }
+
+  
+  const getTruthsFromUserDevice = async () => {
+    try {
+      const truths = await AsyncStorage.getItem('truths');
+      if (truths != null) {
+        setUserTruths(JSON.parse(truths));}
+    } catch (error) {
+      console.log(error);}
+        };
+    
+
+
+
   const handleRemoveTruths = (index) => {
     if(userTruths.length > 1){
       let itemsCopy = [...userTruths];
@@ -83,7 +117,7 @@ export default function AddTruth({navigation}) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTruthsWrapper}
       >
-        <TextInput style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setInputBoxValue(text)} />
+        <TextInput style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setinputBoxValue(text)} />
         <TouchableOpacity onPress={() => handleAddTruths()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>

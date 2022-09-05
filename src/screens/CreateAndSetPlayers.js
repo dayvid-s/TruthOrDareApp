@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { KeyboardAvoidingView,
   StyleSheet,
   Text,
@@ -14,17 +14,15 @@ import Icon  from 'react-native-vector-icons/Octicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CreateAndSetPlayers ({navigation}) {
-  const [inputBoxValue, setInputBoxValue] = useState('');
-  const [players, setPlayers] = useState([]);
-{console.log(players)}
+  const [inputBoxValue, setinputBoxValue] = useState('');
+  const {players, setPlayers} = useContext(Context)
 
 
-React.useEffect(() => {
+useEffect(() => {
   getPlayersFromUserDevice();
-  console.log('foi chamada')
 }, []);
 
-React.useEffect(() => {
+useEffect(() => {
   savePlayersInDevice(players);
 }, [players])
 
@@ -36,29 +34,26 @@ React.useEffect(() => {
 
         
         
-        const handleSetPlayers = () => {
-          if(inputBoxValue == '' ){
-            Alert.alert('Erro','Digite alguma coisa')}
-            else{  
-              Keyboard.dismiss();
-              setPlayers([...players, inputBoxValue])
-              setInputBoxValue(null);}
-              
-            }
-            const removePlayer = (index) => {
-              let itemsCopy = [...players];
-              itemsCopy.splice(index, 1);
-              setPlayers(itemsCopy)
-            }
+  const handleSetPlayers = () => {
+    if(inputBoxValue == '' ){
+      Alert.alert('Erro','Digite alguma coisa')}
+    else{  
+      Keyboard.dismiss();
+      setPlayers([...players, inputBoxValue])
+      setinputBoxValue(null);}         }
+
+
+  const removePlayer = (index) => {
+    let itemsCopy = [...players];
+    itemsCopy.splice(index, 1);
+    setPlayers(itemsCopy)}
             
-            const savePlayersInDevice = async players => {
-              try {
-                const stringifyPlayers = JSON.stringify(players);
-                await AsyncStorage.setItem('players', stringifyPlayers);
-              } catch (error) {
-                console.log(error);
-              };
-              }
+  const savePlayersInDevice = async players => {
+    try {
+      const stringifyPlayers = JSON.stringify(players);
+      await AsyncStorage.setItem('players', stringifyPlayers);
+    } catch (error) {
+        console.log(error);};}
 
 
               
@@ -105,18 +100,16 @@ React.useEffect(() => {
           {
             players.map((item, index) => {
               return (
-                // <View key={Math.random()*23} style={styles.item}>
-                <TextInput key={Math.random()*23} style={styles.input} placeholder={item? item: 'Nome'} 
-                value={inputBoxValue} onChangeText={text =>  setInputBoxValue(text)} />
-                //   <View  key={Math.random()*23} style={styles.itemLeft}>
-                //     <Text  key={Math.random()*23}  style={styles.itemText}>{item}</Text>
-                //   </View>
-                //   <View  key={Math.random()*23} >
-                //     <TouchableOpacity style={{padding: 10}}  key={index}  onPress={() => removePlayer(index)}>
-                //       <Text style={styles.boxRemove} key={Math.random()*23}>X</Text>
-                //     </TouchableOpacity>
-                //   </View>
-                // </View>
+                <View key={Math.random()*23} style={styles.item}>
+                  <View  key={Math.random()*23} style={styles.itemLeft}>
+                    <Text  key={Math.random()*23}  style={styles.itemText}>{item}</Text>
+                  </View>
+                  <View  key={Math.random()*23} >
+                    <TouchableOpacity style={{padding: 10}}  key={index}  onPress={() => removePlayer(index)}>
+                      <Text style={styles.boxRemove} key={Math.random()*23}>X</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               )
             })
           }
@@ -129,6 +122,8 @@ React.useEffect(() => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeinputBoxValueWrapper}
       >
+                <TextInput style={styles.input} placeholder={'Nome do jogador'} 
+                value={inputBoxValue} onChangeText={text =>  setinputBoxValue(text)} />
         <TouchableOpacity onPress={() => handleSetPlayers()}>
           <View style={styles.addWrapper}>
             <Icon name='plus' size={20} color='white' ></Icon>
@@ -149,7 +144,8 @@ const styles = StyleSheet.create({
   advance:{
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight:15
+    flex:2,
+    marginRight:'95%'
   },
   inputBoxValuesWrapper: {
     paddingTop: 80,
@@ -160,7 +156,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '400',
     color: '#6495ed',
-    flex: 1
+    flex: 1,
+    minWidth:'90%'
   },
   items: {
     marginTop: 30,
@@ -182,8 +179,6 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
     borderWidth: 3,
     width: 250,
-    fontSize:20,
-    textAlign:'center',
     backgroundColor:'#444444'
   },
   addWrapper: {
@@ -211,12 +206,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap'
-   },
+  },
   itemText: {
     maxWidth: '80%',
     fontSize:25,
     width: 190,
-    left:20 ,
+    left:'220%' ,
     // textAlign: 'center',
     // color:'#333',
     },boxRemove:{

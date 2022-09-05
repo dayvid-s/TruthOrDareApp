@@ -9,10 +9,10 @@ export default function PlayTruth({navigation})  {
 
   const {initialTruths, userTruths} = useContext(Context)
   const [challengeNumber, setChallengeNumber] = useState(0) 
-  const {players, addPlayers} = useContext(Context)
+  const {players} = useContext(Context)
   const {nextPlayer, setNextPlayer} = useContext(Context)
-  const {showOnlyCustomsOfUser, setShowOnlyCustomsOfUser } = useContext(Context)  
-  const {showUserAndInitial,setShowUserAndInitial } = useContext(Context)
+  const {showOnlyCustomsOfUser} = useContext(Context)  
+  const {showUserAndInitial} = useContext(Context)
   const {showTheInitial, setShowInitial} = useContext(Context)
   var allTruths = [...initialTruths, ...userTruths]
   
@@ -72,9 +72,6 @@ export default function PlayTruth({navigation})  {
             
             <View >
             <Text style={styles.underscore} >______________</Text>
-              {console.log('initial:',showTheInitial)}
-              {console.log('userandinitial',showUserAndInitial)}
-              {console.log('onlycustom',showOnlyCustomsOfUser)}
               
               {showUserAndInitial ==true  && <Text style={styles.truths} 
               >{allTruths[challengeNumber]}</Text>}     
