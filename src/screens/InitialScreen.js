@@ -79,7 +79,7 @@ export default function ({navigation}){
           {showUserAndInitial==false?
             <Text>     </Text> 
             :
-            <Icon style={{backgroundColor:'#0000ff', }}  size={18} name='check' ></Icon>
+            <Icon style={{backgroundColor:'#3cf', }}  size={18} name='check' ></Icon>
         }
         </View>
       </TouchableOpacity>
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     marginLeft:13,
     borderRadius:1,
     marginTop:7,
-    borderColor:'#0000ff',
+    borderColor:'#3cf',
     maxHeight:22,
     maxWidth:23
   }

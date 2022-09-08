@@ -115,7 +115,7 @@ export default function App({navigation}) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeChallengesWrapper}
       >
-        <TextInput style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setinputBoxValue(text)} />
+        <TextInput placeholderTextColor={'grey'} style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setinputBoxValue(text)} />
         <TouchableOpacity onPress={() => handleAddChallenges()}>
           <View style={styles.addWrapper}>
             <Icon name='plus' size={20} color='white' ></Icon>      
@@ -156,29 +156,30 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   input: {
     paddingVertical: 15,
     paddingHorizontal: 15,
-    backgroundColor: '#FFF',
     borderRadius: 60,
-    borderColor: 'blue',
+    borderColor: '#3cf',
     borderWidth: 3,
     width: 250,
-    backgroundColor:"#444444"
-  },
+    backgroundColor:'#rgb(19, 20, 24)',
+    
+     
+   },
   addWrapper: {
     width: 60,
     height: 60,
-    backgroundColor: 'blue',
+    backgroundColor: '#3cf',
     borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
   },
   item: { //envolve as tarefas, todas... é aquele espaço branco atrás, um padding
-    backgroundColor:'#444444',
+    backgroundColor:'#rgb(19, 20, 24)',
     padding: 15,
     borderRadius: 10,
     flexDirection: 'row',
@@ -195,6 +196,8 @@ const styles = StyleSheet.create({
   },
   itemText: {
     maxWidth: '80%', // se caso não colocar isso, ele empurra o x para fora da tela 
+    color: 'grey',
+    
   },
   square: { // a bolinha ali
     width: 24,

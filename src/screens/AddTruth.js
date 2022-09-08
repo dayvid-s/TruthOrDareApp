@@ -117,7 +117,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTruthsWrapper}
       >
-        <TextInput style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setinputBoxValue(text)} />
+        <TextInput placeholderTextColor={'grey'}  style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setinputBoxValue(text)} />
         <TouchableOpacity onPress={() => handleAddTruths()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
@@ -162,26 +162,23 @@ const styles = StyleSheet.create({
   input: {
     paddingVertical: 15,
     paddingHorizontal: 15,
-    backgroundColor: '#FFF',
+    backgroundColor:'#rgb(19, 20, 24)',
     borderRadius: 60,
-    borderColor: 'blue',
+    borderColor: '#3cf',
     borderWidth: 1,
     width: 250,
-    // backgroundColor:'#444444'
-    backgroundColor:'#FFF'
 
   },
   addWrapper: {
     width: 60,
     height: 60,
-    backgroundColor: 'blue',
+    backgroundColor: '#3cf',
     borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
   },
   item: { //envolve as tarefas, todas... é aquele espaço branco atrás, um padding
-    backgroundColor: '#FFF',
     padding: 15,
     borderRadius: 10,
     flexDirection: 'row',
@@ -189,7 +186,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', //esse justify content tá basicamente
       // empurrando o botão circular para o extremidade oposta
     marginBottom: 20,
-    backgroundColor:'#444444'
+    backgroundColor:'#rgb(19, 20, 24)',
   },
   itemLeft: { // as tarefas estarão aqui
     flexDirection: 'row',
@@ -199,6 +196,7 @@ const styles = StyleSheet.create({
   },
   itemText: {
     maxWidth: '80%', // se caso não colocar isso, ele empurra o x para fora da tela 
+    color: 'grey'
   },
   square: { 
     width: 24,

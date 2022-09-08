@@ -1,126 +1,51 @@
-import React, {useState, useContext, useEffect} from 'react';
-
-import { KeyboardAvoidingView,
-    StyleSheet,
-    Text,
-    View,
-    TextInput,
-    TouchableOpacity,
-    Keyboard,
-    ScrollView,
-    Alert, 
-    FlatList
-    } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView} from 'react-native';
 
 export default (props)=>{
-    
-    // const removePlayer = (idItem) => {
-    //     const newItem = props.bigData.filter(item => item.id != idItem);
-    //     props.setItem(newItem);
-    // }
-
     return(
         <ScrollView contentContainerStyle={{flexGrow: 1}}
-            keyboardShouldPersistTaps='handled'
-        >
+            keyboardShouldPersistTaps='handled'>
             <View style={styles.inputBoxValuesWrapper}>
-            <View style={styles.items}>
-            <View  style={styles.item}>
-            <View   style={styles.itemLeft}>
-                <Text    style={styles.itemText}>{props.data}</Text>
-            </View>
-            <View  >
-                <TouchableOpacity onPress={props.remove} style={{padding: 10}}>
-                <Text style={styles.boxRemove} >X</Text>
-                </TouchableOpacity>
-            </ View>
-            </View>
-            </View>
+                <View style={styles.items}>
+                    <Text style={styles.itemText}>{props.data}</Text>
+                    <TouchableOpacity onPress={props.remove} style={{padding: 10}}>
+                        <Text style={styles.boxRemove} >X</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </ScrollView>
-        )
-    }    
-    const styles = StyleSheet.create({
-        container: {
-      flex: 1,
-      backgroundColor: (`#000`),
-    },
-    advance:{
-      justifyContent: 'center',
-      alignItems: 'center',
-      flex:2,
-      marginRight:'95%'
-    },
-    inputBoxValuesWrapper: {
-      paddingTop: 80,
-      paddingHorizontal: 20,
-    },
-    sectionTitle: {
-      textAlign:'center',
-      fontSize: 30,
-      fontWeight: '400',
-      color: '#6495ed',
-      flex: 1,
-      minWidth:'90%'
-    },
-    items: {
-      marginTop: 30,
-    },
-    writeinputBoxValueWrapper: {
-      position: 'absolute',
-      bottom: 60,
-      width: '100%',
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      
-    },
-    input: {
-      paddingVertical: 15,
-      paddingHorizontal: 15,
-      backgroundColor: '#FFF',
-      borderRadius: 10,
-      borderColor: 'blue',
-      borderWidth: 3,
-      width: 250,
-      backgroundColor:'#444444'
-    },
-    addWrapper: {
-      width: 60,
-      height: 60,
-      backgroundColor: 'blue',
-      borderRadius: 10,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    addText: {},
-    item: {
-    //   backgroundColor: '#FFF',
-      borderRadius: 5,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      marginBottom: 20,
-      borderColor: 'black',
-      borderWidth:2
-      
-    
-    },
-    itemLeft: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      flexWrap: 'wrap'
+        )}    
+const styles = StyleSheet.create({
+  inputBoxValuesWrapper: {
+    marginVertical:5,
+    marginTop:10,
+    paddingTop: 5,
+    paddingHorizontal: 20,
+    backgroundColor:'rgb(19, 20, 24)',
+    borderColor: '#3cf',
+    borderWidth:3,
+    marginRight:20,
+    marginLeft:20,
+    borderRadius:16,
+  },
+  items: {
+    borderRadius: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+    borderColor: '#3cf',
     },
     itemText: {
       maxWidth: '80%',
+      fontSize:23,
+      marginLeft:5,
+      color: 'grey'
+    },
+    boxRemove:{
       fontSize:25,
-      width: 190,
-      left:'220%' ,
-      // textAlign: 'center',
-      // color:'#333',
-      },boxRemove:{
-    fontSize:25,
-    textAlign:'center',
-    color:'#6495ed',
-    }
-  });
+      textAlign:'center',
+      color:'#3cf',
+      marginRight:-20,
+      color: 'grey',
+    }});

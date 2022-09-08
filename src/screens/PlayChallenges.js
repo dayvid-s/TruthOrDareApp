@@ -118,7 +118,6 @@ export default function PlayChallenges({navigation})  {
                 <View style={styles.bottomIcons} >
                     <Ionicon style={{left:13}} name='add-outline' size={43} color='white' >  </Ionicon>
                   </View>
-                  {/* <PlusIcon></PlusIcon> */}
                 </TouchableOpacity>                
               </View>
             
