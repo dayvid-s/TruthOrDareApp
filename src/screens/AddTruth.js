@@ -6,11 +6,13 @@ import { KeyboardAvoidingView,
     TextInput,
     TouchableOpacity,
     Keyboard,
-    ScrollView 
+    ScrollView, 
+    FlatList
   } from 'react-native';
 import {Context} from '../../context/Provider'
 import  Icon  from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ListTruthsAndChallenges from '../components/ListTruthsAndChallenges';
 
   
   
@@ -61,15 +63,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-  const handleRemoveTruths = (index) => {
+  const handleRemoveTruths = (truth) => {
     if(userTruths.length > 1){
-      let itemsCopy = [...userTruths];
-      itemsCopy.splice(index, 1);
-      setUserTruths(itemsCopy)
+      const newTruths = userTruths.filter(item => item != truth);
+      setUserTruths(newTruths);
+   
     }else{
-      let itemsCopy = [...userTruths];
-      itemsCopy.splice(index, 1);
-      setUserTruths(itemsCopy)
+      const newTruths = userTruths.filter(item => item != truth);
+      setUserTruths(newTruths);
       setShowOnlyCustomsOfUser(false)
     }
   }
@@ -82,41 +83,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
         <Icon name='arrow-back-outline' size={30} color='#3cf' > </Icon>
       </View>
       </TouchableOpacity>
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1
-        }}
-        keyboardShouldPersistTaps='handled'
-      >
 
       <View style={styles.truthsWrapper}>
         <Text style={styles.sectionTitle}>Seja criativo(a), crie e remova suas próprias perguntas!
         </Text>
-        <View style={styles.items}>
-          {
-            userTruths.map((item, index) => {
-              return (
-                    <View key={Math.random()*3} style={styles.item}>
-                      <View key={Math.random()*3} style={styles.itemLeft}>
-                      <View key={Math.random()*3} style={styles.square}></View>
-                      <Text key={Math.random()*3} style={styles.itemText}>{item}</Text>
-                    </View>
-                    <TouchableOpacity key={index} onPress={()=>handleRemoveTruths(index)}> 
-                      <Text key={Math.random()*3} style={styles.boxRemove}>X</Text>
-                    </TouchableOpacity>
-                  </View>
-                )
-            })
-          }
-        </View>
-      </View>
-        
-      </ScrollView>
+        <FlatList data={userTruths} 
+        renderItem={({item}) => <ListTruthsAndChallenges remove={()=>handleRemoveTruths(item)}
+        data={item}/> }>
+      </FlatList>
 
+      </View>
       <KeyboardAvoidingView 
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTruthsWrapper}
-      >
+        >
         <TextInput placeholderTextColor={'grey'}  style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setinputBoxValue(text)} />
         <TouchableOpacity onPress={() => handleAddTruths()}>
           <View style={styles.addWrapper}>
@@ -145,8 +125,8 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#AFADAC'
- 
+    color: '#AFADAC',
+    marginBottom:20
   },
   items: {
     marginTop: 30,

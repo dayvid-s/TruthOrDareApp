@@ -14,8 +14,9 @@ export default function PlayTruth({navigation})  {
   const {showOnlyCustomsOfUser} = useContext(Context)  
   const {showUserAndInitial} = useContext(Context)
   const {showTheInitial, setShowInitial} = useContext(Context)
-  var allTruths = [...initialTruths, ...userTruths]
   
+  ShuffleArray(initialTruths)
+  var allTruths = [...initialTruths, ...userTruths]
   ShuffleArray(allTruths)
 
   const reloadTruths= ()=> {  

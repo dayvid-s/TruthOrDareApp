@@ -5,7 +5,7 @@ export default (props)=>{
     return(
         <ScrollView contentContainerStyle={{flexGrow: 1}}
             keyboardShouldPersistTaps='handled'>
-            <View style={styles.inputBoxValuesWrapper}>
+            <View style={styles.wrapperOfAllList}>
                 <View style={styles.items}>
                     <Text style={styles.itemText}>{props.data}</Text>
                     <TouchableOpacity onPress={props.remove} style={{padding: 10}}>
@@ -16,14 +16,13 @@ export default (props)=>{
         </ScrollView>
         )}    
 const styles = StyleSheet.create({
-  inputBoxValuesWrapper: {
+  wrapperOfAllList: {
     marginVertical:5,
     marginTop:10,
     paddingTop: 5,
     paddingHorizontal: 20,
     backgroundColor:'rgb(19, 20, 24)',
     borderColor: '#3cf',
-    borderWidth:3,
     marginRight:20,
     marginLeft:20,
     borderRadius:16,
@@ -36,16 +35,15 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderColor: '#3cf',
     },
-    itemText: {
-      maxWidth: '80%',
-      fontSize:23,
-      marginLeft:5,
-      color: 'grey'
+  itemText: {
+    maxWidth: '80%',
+    fontSize:23,
+    marginLeft:5,
+    color: '#3cf'
     },
-    boxRemove:{
-      fontSize:25,
-      textAlign:'center',
-      color:'#3cf',
-      marginRight:-20,
-      color: 'grey',
-    }});
+  boxRemove:{
+    fontSize:25,
+    textAlign:'center',
+    marginRight:-20,
+    color:'#3cf'
+  }});

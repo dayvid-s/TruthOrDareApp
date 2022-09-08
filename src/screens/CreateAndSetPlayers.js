@@ -13,7 +13,7 @@ import { KeyboardAvoidingView,
 import { Context } from '../../context/Provider';
 import Icon  from 'react-native-vector-icons/Octicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ListItem from './../components/ListItem';
+import ListUsers from './../components/ListUsers';
 
 export default function CreateAndSetPlayers ({navigation}) {
   const [inputBoxValue, setinputBoxValue] = useState('');
@@ -42,8 +42,8 @@ export default function CreateAndSetPlayers ({navigation}) {
       Keyboard.dismiss();
     }
     
-  const removePlayer = challengeItem => {
-    const newPlayer = players.filter(item => item != challengeItem);
+  const removePlayer = player => {
+    const newPlayer = players.filter(item => item != player);
     setPlayers(newPlayer);
   };
 
@@ -78,7 +78,7 @@ export default function CreateAndSetPlayers ({navigation}) {
       </View>
 
       <FlatList data={players} 
-        renderItem={({item}) => <ListItem remove={()=>removePlayer(item)}
+        renderItem={({item}) => <ListUsers remove={()=>removePlayer(item)}
         data={item}/> }>
       </FlatList>
 
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     width: 250,
     backgroundColor:'#rgb(19, 20, 24)',
-    color:'red'
+    color:'grey'
   },
   addWrapper: {
     width: 60,

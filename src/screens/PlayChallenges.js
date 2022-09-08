@@ -17,7 +17,8 @@ export default function PlayChallenges({navigation})  {
   const {showTheInitial, setShowInitial} = useContext(Context)
   ShuffleArray(initialChallenges)
   var allChallenges = [...initialChallenges, ...userChallenges]
-  
+  ShuffleArray(allChallenges)
+  console.log(allChallenges)
 
   const reloadChallenges= ()=> {  
     if(showUserAndInitial== true){
