@@ -9,10 +9,6 @@ export default function PlayChallenges({navigation,route})  {
     const {showUserAndInitial,setShowUserAndInitial } = useContext(Context)
     const {showTheInitial, setShowInitial} = useContext(Context)
     const {userChallenges, userTruths} = useContext(Context)
-    
-    console.log('showOnlyCustomsOfUser',showOnlyCustomsOfUser)
-    console.log('showTheInitial',showTheInitial)
-    console.log('showuserAndInitial',showUserAndInitial )
   useEffect(() => {
     if(showOnlyCustomsOfUser == false && showUserAndInitial == false  ){
       console.log('nem ta chamando saporra')

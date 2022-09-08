@@ -15,17 +15,24 @@ export default function PlayChallenges({navigation})  {
   const {showOnlyCustomsOfUser } = useContext(Context)  
   const {showUserAndInitial } = useContext(Context)
   const {showTheInitial, setShowInitial} = useContext(Context)
-  ShuffleArray(initialChallenges)
   var allChallenges = [...initialChallenges, ...userChallenges]
   ShuffleArray(allChallenges)
-  console.log(allChallenges)
-
+  
+  useEffect(()=> {
+    ShuffleArray(initialChallenges)
+    var allChallenges = [...initialChallenges, ...userChallenges]
+    console.log('foi chamada')
+    
+  }),[reloadChallenges]
   const reloadChallenges= ()=> {  
     if(showUserAndInitial== true){
       if (allChallenges.length-1 > challengeNumber ) {                       
         setChallengeNumber(challengeNumber+1)
+        // ShuffleArray(userChallenges)
+        ShuffleArray(allChallenges)
       } 
       else{
+        ShuffleArray(allChallenges)
         setChallengeNumber(0)
       }}
     if( showOnlyCustomsOfUser == true)
