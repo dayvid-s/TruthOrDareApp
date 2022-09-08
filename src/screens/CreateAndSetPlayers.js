@@ -7,11 +7,13 @@ import { KeyboardAvoidingView,
   TouchableOpacity,
   Keyboard,
   ScrollView,
-  Alert 
+  Alert, 
+  FlatList
   } from 'react-native';
 import { Context } from '../../context/Provider';
 import Icon  from 'react-native-vector-icons/Octicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ListItem from './../components/ListItem';
 
 export default function CreateAndSetPlayers ({navigation}) {
   const [inputBoxValue, setinputBoxValue] = useState('');
@@ -26,7 +28,7 @@ useEffect(() => {
   savePlayersInDevice(players);
 }, [players])
 
-  const advance = () =>{
+  const advance = () =>{    
     if(players.length >=2){
       navigation.navigate('InitialScreen')}
       else{ 
@@ -34,20 +36,30 @@ useEffect(() => {
 
         
         
-  const handleSetPlayers = () => {
+  const handleSavePlayer = () => {
     if(inputBoxValue == '' ){
       Alert.alert('Erro','Digite alguma coisa')}
     else{  
-      Keyboard.dismiss();
+      // const newPlayer =[{
+      //   id : Math.random(),
+      //   player: inputBoxValue,
+      //   }]
       setPlayers([...players, inputBoxValue])
-      setinputBoxValue(null);}         }
+      setinputBoxValue(null);}         
+      Keyboard.dismiss();
+    }
 
+    
+  const removePlayer = challengeItem => {
+    const newPlayer = players.filter(item => item != challengeItem);
+    setPlayers(newPlayer);
+  };
 
-  const removePlayer = (index) => {
-    let itemsCopy = [...players];
-    itemsCopy.splice(index, 1);
-    setPlayers(itemsCopy)}
-            
+  // const removePlayer = (item) => {
+  //   // let itemsCopy = [...players];
+  //   // itemsCopy.splice(index, 1);
+  //   // setPlayers(itemsCopy)}
+  //           console.log(item)}
   const savePlayersInDevice = async players => {
     try {
       const stringifyPlayers = JSON.stringify(players);
@@ -89,14 +101,14 @@ useEffect(() => {
         </TouchableOpacity>
       </View>
             
-      <ScrollView
+      {/* <ScrollView
         contentContainerStyle={{
           flexGrow: 1
         }}
-        keyboardShouldPersistTaps='handled'
-      >
-      <View style={styles.inputBoxValuesWrapper}>
-        <View style={styles.items}>
+        keyboardShouldPersistTaps='handled' */}
+      {/* > */}
+      {/* <View style={styles.inputBoxValuesWrapper}> */}
+        {/* <View style={styles.items}>
           {
             players.map((item, index) => {
               return (
@@ -113,10 +125,15 @@ useEffect(() => {
               )
             })
           }
-        </View>
-      </View>
+        </View> */}
+        {console.log(players)}
+        <FlatList data={players} 
+      renderItem={({item}) => <ListItem remove={()=>removePlayer(item)} data={item}
+      // choice={players.id 
+      /> 
+      } ></FlatList>
+      {/* </View> */}
         
-      </ScrollView>
 
       <KeyboardAvoidingView 
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -124,7 +141,7 @@ useEffect(() => {
       >
                 <TextInput style={styles.input} placeholder={'Nome do jogador'} 
                 value={inputBoxValue} onChangeText={text =>  setinputBoxValue(text)} />
-        <TouchableOpacity onPress={() => handleSetPlayers()}>
+        <TouchableOpacity onPress={() => handleSavePlayer()}>
           <View style={styles.addWrapper}>
             <Icon name='plus' size={20} color='white' ></Icon>
           </View>
@@ -138,7 +155,7 @@ useEffect(() => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: (`#000000`),
+    backgroundColor: '#000',
 
   },
   advance:{
