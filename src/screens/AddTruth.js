@@ -158,33 +158,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
   },
-  item: { //envolve as tarefas, todas... é aquele espaço branco atrás, um padding
+  item: { 
     padding: 15,
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', //esse justify content tá basicamente
-      // empurrando o botão circular para o extremidade oposta
+    justifyContent: 'space-between', 
     marginBottom: 20,
     backgroundColor:'#rgb(19, 20, 24)',
   },
-  itemLeft: { // as tarefas estarão aqui
+  itemLeft: { // as tarefas estarão aqu
     flexDirection: 'row',
     alignItems: 'center',
-    flexWrap: 'wrap'  // se a tarefa ficar muito grande, ele vai passar pra 
+    flexWrap: 'wrap'  // se o texto ficar muito grande, ele vai passar pra 
     //proxima linha, flexwrap
   },
   itemText: {
-    maxWidth: '80%', // se caso não colocar isso, ele empurra o x para fora da tela 
+    maxWidth: '80%',
     color: 'grey'
   },
   square: { 
     width: 24,
     height: 24,
     backgroundColor: '#3cf',
-    // opacity: 0.4,   // era um azul bem forte, mas alterou com a opacidade, teste dps.
-    borderRadius: 25,    // isso fez o quadrado ficar mais um pouco redondo rsrs teste ao extremo dps
-    marginRight: 15, // aqui afastou mais o item de texto para a direita 
+    // opacity: 0.4,   
+    borderRadius: 25,   
+    marginRight: 15, 
   },
   boxRemove:{
     fontSize:25,
