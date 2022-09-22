@@ -9,7 +9,6 @@ import { KeyboardAvoidingView,
     TouchableOpacity,
     Keyboard,
     FlatList,
-    Modal
   } from 'react-native';
 import { Context } from '../context/Provider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,6 +20,7 @@ export default function AddDare({navigation}) {
   const {userChallenges, setUserChallenges} = useContext(Context)
   const {setShowOnlyCustomsOfUser} = useContext(Context)
   const [index, setIndex] = useState(null);
+  const [disableButton, setDisableButton] = useState(false);
  
   useEffect(() => {
      getChallengesFromUserDevice();
@@ -32,7 +32,7 @@ export default function AddDare({navigation}) {
   
   const handleAddChallenges = () => {
     if (inputBoxValue == null ){
-      alert("Escreva algo")
+      alert("Escreva algo...")
     }else{
       Keyboard.dismiss();
       setUserChallenges([...userChallenges, inputBoxValue])
@@ -63,16 +63,36 @@ export default function AddDare({navigation}) {
     const handleStartEditChallenge=(challenge)=>{
       setinputBoxValue(challenge)
       setIndex(userChallenges.indexOf(challenge))
-      
+      setDisableButton(true)
     }
 
     const handleEditChallenge =()=>{
-      if (index !== -1) {
-        var copyChallenges= [...userChallenges]
-        copyChallenges[index] = inputBoxValue;
-        setUserChallenges(copyChallenges);
-    }}
+      if (index === null || inputBoxValue==='') {
+        if(index===null){
+          alert('Escolha um item para editar primeiro!')
+          return};
+        if(inputBoxValue===''){
+          alert('Escreva algo... ')
+          return;
+        }
+      }
+      var copyChallenges= [...userChallenges]
+      copyChallenges[index] = inputBoxValue;
+      setUserChallenges(copyChallenges);
+      setinputBoxValue('');
+      setIndex(null);
+      setDisableButton(false);
+      Keyboard.dismiss();
+    }
   
+    const handleCancelEdit=() =>{
+      setIndex(null);
+      setinputBoxValue('');
+      Keyboard.dismiss();
+      setDisableButton(false)
+    }
+
+
   const handleRemoveChallenges = (challenge) => {
       //this "challenge is the item that i pass"
       if(userChallenges.length > 1){
@@ -97,6 +117,16 @@ export default function AddDare({navigation}) {
       <View style={styles.challengesWrapper}>
         <Text style={styles.sectionTitle}>Seja criativo(a), crie e remova seus próprios desafios!
         </Text>
+      
+      {index!== null&&(
+        <View style={{flexDirection:'row', marginLeft:8}} >
+        <TouchableOpacity onPress={handleCancelEdit}>
+          <Icon name='x-circle' size={20} color="#3cf" ></Icon>
+        </TouchableOpacity>
+        <Text style={{marginLeft:5, marginBottom:5, color:'#3cf'}} >Você está editando um desafio!</Text>
+      </View>
+      )}
+
       <FlatList data={userChallenges} 
         renderItem={({item}) => <ListTruthsAndChallenges 
         data={item} edit = {()=>handleStartEditChallenge(item)} 
@@ -109,7 +139,8 @@ export default function AddDare({navigation}) {
         style={styles.writeChallengesWrapper}
       >
         <TextInput placeholderTextColor={'grey'} style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setinputBoxValue(text)} />
-        <TouchableOpacity onPress={() => handleAddChallenges()}>
+        {/*  opacidade= se disable for true opacidade 0.1, senao: 1 simple     */}
+        <TouchableOpacity  style={{opacity:disableButton?0.2 : 1}}  disabled={disableButton} onPress={() => handleAddChallenges()}>
           <View style={styles.addAndEdit}>
             <Icon name='plus' size={20} color='white' ></Icon>      
           </View>

@@ -1,4 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
+
 import { KeyboardAvoidingView,
   StyleSheet,
     Text,
@@ -6,21 +7,23 @@ import { KeyboardAvoidingView,
     TextInput,
     TouchableOpacity,
     Keyboard,
-    ScrollView, 
     FlatList
   } from 'react-native';
 import {Context} from '../context/Provider'
-import  Icon  from 'react-native-vector-icons/Ionicons';
+import Icon  from 'react-native-vector-icons/Octicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ListTruthsAndChallenges from '../components/ListTruthsAndChallenges';
 
   
   
-  export default function AddTruth({navigation}) {
-    const [inputBoxValue, setinputBoxValue] = useState();
-    const {userTruths, setUserTruths} = useContext(Context)
-    const {showOnlyCustomsOfUser, setShowOnlyCustomsOfUser} = useContext(Context)
-    
+export default function AddTruth({navigation}) {
+  const [inputBoxValue, setinputBoxValue] = useState();
+  const {userTruths, setUserTruths} = useContext(Context)
+  const {showOnlyCustomsOfUser, setShowOnlyCustomsOfUser} = useContext(Context)
+  const [index, setIndex] = useState(null);
+  const [disableButton, setDisableButton] = useState(false);
+
+  
   useEffect(() => {
     getTruthsFromUserDevice();
   },[])
@@ -60,7 +63,37 @@ import ListTruthsAndChallenges from '../components/ListTruthsAndChallenges';
       console.log(error);}
         };
     
+  const handleStartEdiTruth=(truth)=>{
+    setinputBoxValue(truth)
+    setIndex(userTruths.indexOf(truth))
+      setDisableButton(true)
+  }      
 
+  const handleEditTruth =()=>{
+    if (index === null || inputBoxValue==='') {
+      if(index===null){
+        alert('Escolha um item para editar primeiro!')
+        return};
+      if(inputBoxValue===''){
+        alert('Escreva algo... ')
+        return;
+      }
+    }
+    var copyTruths= [...userTruths]
+    copyTruths[index] = inputBoxValue;
+    setUserChallenges(copyTruths);
+    setinputBoxValue('');
+    setIndex(null);
+    setDisableButton(false);
+    Keyboard.dismiss();
+  }
+
+  const handleCancelEdit=() =>{
+    setIndex(null);
+    setinputBoxValue('');
+    Keyboard.dismiss();
+    setDisableButton(false)
+  }
 
 
   const handleRemoveTruths = (truth) => {
@@ -80,15 +113,28 @@ import ListTruthsAndChallenges from '../components/ListTruthsAndChallenges';
 
       <TouchableOpacity style={styles.iconGoBack} onPress={()=>{ navigation.goBack()}}  >
       <View style= {{right:-15, marginVertical:20}}>
-        <Icon name='arrow-back-outline' size={30} color='#3cf' > </Icon>
+        <Icon name='chevron-left' size={30} color='#3cf' > </Icon>
       </View>
       </TouchableOpacity>
 
       <View style={styles.truthsWrapper}>
         <Text style={styles.sectionTitle}>Seja criativo(a), crie e remova suas próprias perguntas!
         </Text>
+
+      {index!== null&&(
+      <View style={{flexDirection:'row', marginLeft:8}} >
+        <TouchableOpacity onPress={handleCancelEdit}>
+          <Icon name='x-circle' size={20} color="#3cf" ></Icon>
+        </TouchableOpacity>
+        <Text style={{marginLeft:5, marginBottom:5, color:'#3cf'}} >Você está editando uma pergunta!</Text>
+      </View>
+      )}
+
+
         <FlatList data={userTruths} 
-        renderItem={({item}) => <ListTruthsAndChallenges remove={()=>handleRemoveTruths(item)}
+        renderItem={({item}) => <ListTruthsAndChallenges 
+        edit = {()=>handleStartEdiTruth(item)}
+        remove={()=>handleRemoveTruths(item)}
         data={item}/> }>
       </FlatList>
 
@@ -97,10 +143,15 @@ import ListTruthsAndChallenges from '../components/ListTruthsAndChallenges';
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeTruthsWrapper}
         >
-        <TextInput placeholderTextColor={'grey'}  style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setinputBoxValue(text)} />
-        <TouchableOpacity onPress={() => handleAddTruths()}>
-          <View style={styles.addWrapper}>
-            <Text style={styles.addText}>+</Text>
+        <TextInput placeholderTextColor={'grey'}  style={styles.input} placeholder={'Adicione uma verdade!'} value={inputBoxValue} onChangeText={text => setinputBoxValue(text)} />
+        <TouchableOpacity  style={{opacity:disableButton?0.2 : 1}}  disabled={disableButton} onPress={() => handleAddChallenges()}>
+          <View style={styles.addAndEdit}>
+            <Icon name='plus' size={20} color='white' ></Icon>      
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleEditTruth()}>
+          <View style={styles.addAndEdit}>
+            <Text style={styles.edit} >Editar</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -187,5 +238,19 @@ const styles = StyleSheet.create({
   boxRemove:{
     fontSize:25,
     textAlign:'center',
-    color:'#3cf',}
+    color:'#3cf',
+  },
+  addAndEdit: {
+    width: 60,
+    height: 60,
+    backgroundColor: '#3cf',
+    borderRadius: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+  },
+  edit:{
+    fontWeight:'400',
+    color:'#fff'
+  }
   });

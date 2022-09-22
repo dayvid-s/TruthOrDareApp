@@ -19,7 +19,9 @@ import ListUsers from './../components/ListUsers';
 export default function CreateAndSetPlayers ({navigation}) {
   const [inputBoxValue, setinputBoxValue] = useState('');
   const {players, setPlayers} = useContext(Context)
-
+  const [index, setIndex] = useState(null);
+  const [disableButton, setDisableButton] = useState(false);
+ 
   useEffect(() => {
     getPlayersFromUserDevice();
   }, []);
@@ -65,6 +67,40 @@ export default function CreateAndSetPlayers ({navigation}) {
       console.log(error);
     }};
 
+    const handleStartEditPlayer=(player)=>{
+      setinputBoxValue(player)
+      setIndex(players.indexOf(player))
+      setDisableButton(true)
+    }
+
+
+    const handleEditPlayer =()=>{
+      if (index === null || inputBoxValue==='') {
+        if(index===null){
+          alert('Escolha um item para editar primeiro!')
+          return};
+        if(inputBoxValue===''){
+          alert('Escreva algo... ')
+          return;
+        }
+      }
+      var copyPlayers= [...players]
+      copyPlayers[index] = inputBoxValue;
+      setPlayers(copyPlayers);
+      setinputBoxValue('');
+      setIndex(null);
+      setDisableButton(false);
+      Keyboard.dismiss();
+    }
+  
+    const handleCancelEdit=() =>{
+      setIndex(null);
+      setinputBoxValue('');
+      Keyboard.dismiss();
+      setDisableButton(false)
+    }
+
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={"black"} ></StatusBar>
@@ -77,10 +113,21 @@ export default function CreateAndSetPlayers ({navigation}) {
         </TouchableOpacity>
         </View>
       </View>
+      
+      {index!== null&&(
+        <View style={{flexDirection:'row', marginLeft:25}} >
+        <TouchableOpacity onPress={handleCancelEdit}>
+          <Icon name='x-circle' size={20} color="#3cf" ></Icon>
+        </TouchableOpacity>
+        <Text style={{marginLeft:5, marginBottom:5, color:'#3cf'}} >Você está editando o nome de um jogador!</Text>
+      </View>
+      )}
 
       <FlatList data={players} 
-        renderItem={({item}) => <ListUsers remove={()=>removePlayer(item)}
-        data={item}/> }>
+        renderItem={({item}) => <ListUsers 
+        data={item}
+        edit = {()=>handleStartEditPlayer(item)}
+        remove={()=>removePlayer(item)}/> }>
       </FlatList>
 
       <KeyboardAvoidingView 
@@ -88,9 +135,15 @@ export default function CreateAndSetPlayers ({navigation}) {
           style={styles.writeinputBoxValueWrapper}>
         <TextInput placeholderTextColor={'grey'}  style={styles.input} placeholder={'Adicione os jogadores...'} 
           value={inputBoxValue} onChangeText={text =>  setinputBoxValue(text)} />
-        <TouchableOpacity onPress={() => handleSavePlayer()}>
-          <View style={styles.addWrapper}>
-            <Icon name='plus' size={20} color='white' ></Icon>
+        
+        <TouchableOpacity  style={{opacity:disableButton?0.2 : 1}}  disabled={disableButton} onPress={() => handleSavePlayer()}>
+          <View style={styles.addAndEdit}>
+            <Icon name='plus' size={20} color='white' ></Icon>      
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleEditPlayer()}>
+          <View style={styles.addAndEdit}>
+            <Text style={styles.edit} >Editar</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -144,4 +197,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  addAndEdit: {
+    width: 60,
+    height: 60,
+    backgroundColor: '#3cf',
+    borderRadius: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+  },
+  edit:{
+    fontWeight:'400',
+    color:'#fff'
+  }
 });
