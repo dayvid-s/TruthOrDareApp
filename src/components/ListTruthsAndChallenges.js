@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView} from 'react-native';
+import Icon  from 'react-native-vector-icons/Octicons';
 
-export default function ({data,remove}){
+export default function ({data,remove,edit}){
     return(
         <ScrollView contentContainerStyle={{flexGrow: 1}}
             keyboardShouldPersistTaps='handled'>
@@ -10,9 +11,10 @@ export default function ({data,remove}){
                 <View  style={{flex:1}}>
                     <Text style={styles.itemText}>{data}</Text>
                 </View>
-                {/* <TouchableOpacity onPress={edit(data)} style={{padding: 10}}>
-                    <Text style={styles.boxRemove} >EDITAR</Text>
-                </TouchableOpacity> */}
+                <TouchableOpacity onPress={edit} style={{padding: 10}}>
+                    <Icon name='pencil'color={'#2980b9'} size={21} ></Icon>
+                </TouchableOpacity>
+                {/* {console.log(data)} */}
                 <TouchableOpacity onPress={remove} style={{padding: 10}}>
                     <Text style={styles.boxRemove} >X</Text>
                 </TouchableOpacity>

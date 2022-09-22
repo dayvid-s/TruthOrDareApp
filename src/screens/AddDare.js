@@ -8,7 +8,8 @@ import { KeyboardAvoidingView,
     TextInput,
     TouchableOpacity,
     Keyboard,
-    FlatList
+    FlatList,
+    Modal
   } from 'react-native';
 import { Context } from '../context/Provider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -19,7 +20,8 @@ export default function AddDare({navigation}) {
   const [inputBoxValue, setinputBoxValue] = useState();
   const {userChallenges, setUserChallenges} = useContext(Context)
   const {setShowOnlyCustomsOfUser} = useContext(Context)
-
+  const [index, setIndex] = useState(null);
+ 
   useEffect(() => {
      getChallengesFromUserDevice();
   },[])
@@ -56,17 +58,29 @@ export default function AddDare({navigation}) {
       console.log(error);}
         };
     
-    const handleEditChallenge=(data)=>{
-      alert(data)
+
+
+    const handleStartEditChallenge=(challenge)=>{
+      setinputBoxValue(challenge)
+      setIndex(userChallenges.indexOf(challenge))
+      
     }
 
-    const handleRemoveChallenges = (challenge) => {
+    const handleEditChallenge =()=>{
+      if (index !== -1) {
+        var copyChallenges= [...userChallenges]
+        copyChallenges[index] = inputBoxValue;
+        setUserChallenges(copyChallenges);
+    }}
+  
+  const handleRemoveChallenges = (challenge) => {
+      //this "challenge is the item that i pass"
       if(userChallenges.length > 1){
-        const newChallenges = userChallenges.filter(item => item != challenge);
+        var newChallenges = userChallenges.filter(item => item != challenge);
         setUserChallenges(newChallenges);
     
       }else{
-        const newChallenges = userChallenges.filter(item => item != challenge);
+        var newChallenges = userChallenges.filter(item => item != challenge);
         setUserChallenges(newChallenges);
         setShowOnlyCustomsOfUser(false)
       }
@@ -85,7 +99,7 @@ export default function AddDare({navigation}) {
         </Text>
       <FlatList data={userChallenges} 
         renderItem={({item}) => <ListTruthsAndChallenges 
-        data={item}  
+        data={item} edit = {()=>handleStartEditChallenge(item)} 
         remove={()=>handleRemoveChallenges(item)}/> }>
       </FlatList>
       
@@ -96,8 +110,13 @@ export default function AddDare({navigation}) {
       >
         <TextInput placeholderTextColor={'grey'} style={styles.input} placeholder={'Adicione um desafio!'} value={inputBoxValue} onChangeText={text => setinputBoxValue(text)} />
         <TouchableOpacity onPress={() => handleAddChallenges()}>
-          <View style={styles.addWrapper}>
+          <View style={styles.addAndEdit}>
             <Icon name='plus' size={20} color='white' ></Icon>      
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleEditChallenge()}>
+          <View style={styles.addAndEdit}>
+            <Text style={styles.edit} >Editar</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -143,7 +162,7 @@ const styles = StyleSheet.create({
     width: 250,
     backgroundColor:'#rgb(19, 20, 24)',
   },
-  addWrapper: {
+  addAndEdit: {
     width: 60,
     height: 60,
     backgroundColor: '#3cf',
@@ -152,5 +171,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
   },
-  
+  edit:{
+    fontWeight:'400',
+    color:'#fff'
+  }
 });

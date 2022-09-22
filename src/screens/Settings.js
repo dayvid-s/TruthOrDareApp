@@ -1,5 +1,8 @@
 // ignore this page. 'deprecated', lol
-import React, {useState, useContext,useEffect} from 'react';
+
+
+
+import React, {useContext,useEffect} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
 import { Context } from '../context/Provider';
@@ -11,25 +14,11 @@ export default function PlayChallenges({navigation,route})  {
     const {userChallenges, userTruths} = useContext(Context)
   useEffect(() => {
     if(showOnlyCustomsOfUser == false && showUserAndInitial == false  ){
-      console.log('nem ta chamando saporra')
       setShowInitial(true)
     }
 }
   ),[ setShowOnlyCustomsOfUser ,setShowUserAndInitial]
 
-
-    // useEffect(() => {
-    //   if(showOnlyCustomsOfUser == true){
-    //     setShowInitial(false)
-    //     setShowUserAndInitial(false) 
-    //     {console.log('pasou aqui por algum motivo')}
-        
-    //   }if(showUserAndInitial== false){
-    //     setShowInitial(true)
-        
-    //   }
-    // }),[setShowUserAndInitial, setShowOnlyCustomsOfUser]
-      
     const ActivatedShowOnlyCustomsOfUser =()=>{
       if( userChallenges.length > 0 & userTruths.length > 0 ){
       setShowOnlyCustomsOfUser(!showOnlyCustomsOfUser)
@@ -46,7 +35,7 @@ export default function PlayChallenges({navigation,route})  {
               <TouchableOpacity onPress={() => {navigation.goBack()}}  >
                 <Icon name='left' size={30} color='#00bfff'/>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => {navigation.goBack()}}  >
+              <TouchableOpacity>
                 <Icon style={{left:270}} name='instagram' size={30} color='#00bfff'/>
               </TouchableOpacity>
               <Text style={styles.lettersOne}>Configurações</Text>
@@ -75,7 +64,6 @@ export default function PlayChallenges({navigation,route})  {
      </View>
       
 
-
            
            <View style={{flexDirection:'row', alignSelf:'center', justifyContent:'space-between'  } } >
               <View style={{right:20}}  >
@@ -99,21 +87,4 @@ export default function PlayChallenges({navigation,route})  {
             color:('#00bfff'),
             left: 30
         },
-        lettersTwo:{
-          fontSize:20,
-          color:('#ff66eb'),
-          fontStyle:('normal'),
-          fontWeight:('100'),
-          alignSelf:'center'
-        },
-        lettersThree:{
-          fontSize:40,
-          color:('#ff09de'),
-          alignSelf:'center',
-        }, 
-         conditionalrender:{
-          fontSize:28,
-          textAlign:'center'
-      
-      }
       });
