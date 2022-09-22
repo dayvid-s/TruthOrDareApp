@@ -2,7 +2,7 @@
 import React, {useState, useContext,useEffect} from 'react';
 import { View,Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Icon  from 'react-native-vector-icons/AntDesign';
-import { Context } from '../../context/Provider';
+import { Context } from '../context/Provider';
 
 export default function PlayChallenges({navigation,route})  {
     const {showOnlyCustomsOfUser, setShowOnlyCustomsOfUser} = useContext(Context)

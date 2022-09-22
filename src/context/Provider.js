@@ -1,6 +1,6 @@
-import React,{useState, createContext, useContext} from 'react';
-import dataOfInitialChallenges from './../src/components/dataOfInitialChallenges';
-import dataOfInitialTruths from './../src/components/dataOfInicialTruths';
+import React,{useState, createContext} from 'react';
+import dataOfInitialChallenges from '../components/dataOfInitialChallenges';
+import dataOfInitialTruths from '../components/dataOfInicialTruths';
 export const Context = createContext()
 
 export default function Provider({children}){ 

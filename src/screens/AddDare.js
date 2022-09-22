@@ -8,10 +8,9 @@ import { KeyboardAvoidingView,
     TextInput,
     TouchableOpacity,
     Keyboard,
-    ScrollView, 
     FlatList
   } from 'react-native';
-import {Context} from '../../context/Provider'
+import { Context } from '../context/Provider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ListTruthsAndChallenges from '../components/ListTruthsAndChallenges';
 
@@ -57,6 +56,10 @@ export default function AddDare({navigation}) {
       console.log(error);}
         };
     
+    const handleEditChallenge=(data)=>{
+      alert(data)
+    }
+
     const handleRemoveChallenges = (challenge) => {
       if(userChallenges.length > 1){
         const newChallenges = userChallenges.filter(item => item != challenge);
@@ -71,7 +74,6 @@ export default function AddDare({navigation}) {
     
     return (
     <View style={styles.container}>
-      {/* Added this scroll view to enable scrolling when list gets longer than the page */}
 
       <TouchableOpacity style={styles.iconGoBack} onPress={()=>{ navigation.goBack()}}  >
       <View style= {{right:-15, marginVertical:20}}>
@@ -82,12 +84,12 @@ export default function AddDare({navigation}) {
         <Text style={styles.sectionTitle}>Seja criativo(a), crie e remova seus próprios desafios!
         </Text>
       <FlatList data={userChallenges} 
-        renderItem={({item}) => <ListTruthsAndChallenges remove={()=>handleRemoveChallenges(item)}
-        data={item}/> }>
+        renderItem={({item}) => <ListTruthsAndChallenges 
+        data={item}  
+        remove={()=>handleRemoveChallenges(item)}/> }>
       </FlatList>
       
       </View>
-      {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
       <KeyboardAvoidingView 
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.writeChallengesWrapper}

@@ -5,7 +5,7 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
-import { Context } from '../.././context/Provider';
+import { Context } from '../context/Provider';
 import Icon  from 'react-native-vector-icons/AntDesign';
 import ThreeItems from '../components/ThreeItems';
 

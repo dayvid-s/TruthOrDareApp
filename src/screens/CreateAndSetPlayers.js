@@ -10,7 +10,8 @@ import { KeyboardAvoidingView,
   FlatList,
   StatusBar
   } from 'react-native';
-import { Context } from '../../context/Provider';
+import { Context } from '../context/Provider';
+
 import Icon  from 'react-native-vector-icons/Octicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ListUsers from './../components/ListUsers';

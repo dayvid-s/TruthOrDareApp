@@ -1,16 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView} from 'react-native';
 
-export default (props)=>{
+export default function ({data,remove}){
     return(
         <ScrollView contentContainerStyle={{flexGrow: 1}}
             keyboardShouldPersistTaps='handled'>
             <View style={styles.wrapperOfAllList}>
                 <View style={styles.square}></View>
                 <View  style={{flex:1}}>
-                    <Text style={styles.itemText}>{props.data}</Text>
+                    <Text style={styles.itemText}>{data}</Text>
                 </View>
-                <TouchableOpacity onPress={props.remove} style={{padding: 10}}>
+                {/* <TouchableOpacity onPress={edit(data)} style={{padding: 10}}>
+                    <Text style={styles.boxRemove} >EDITAR</Text>
+                </TouchableOpacity> */}
+                <TouchableOpacity onPress={remove} style={{padding: 10}}>
                     <Text style={styles.boxRemove} >X</Text>
                 </TouchableOpacity>
             </View>
