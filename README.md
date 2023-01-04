@@ -29,3 +29,7 @@ Truth or dare app, using JavaScript, Context Api, Asyncstorage... It is a CRUD, 
 <img src="https://user-images.githubusercontent.com/96401650/194763877-e6ac45c6-2d10-404d-b7fa-3b4f568f760f.jpeg" width="300px" />
   
 </div>
+
+
+# License
+MIT
